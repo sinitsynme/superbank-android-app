@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="label_welcome">Добро пожаловать!</string>
+    <string name="label_new_account">Создание нового счета</string>
+    <string name="label_manage_accounts">Управление счетами</string>
+    <string name="label_version">V.1.0.ALPHA (3 семестр)</string>
+    <string name="label_new_transaction">Новая транзакция</string>
+    <string name="label_sender_account_number">№ счёта/карты отправителя</string>
+    <string name="label_receiver_account_number">№ счёта/карты получателя</string>
+    <string name="label_transaction_sum">Сумма</string>
+    <string name="label_currency">Валюта</string>
+    <string name="category_supermarket">Супермаркеты</string>
+    <string name="category_money_transferal">Перевод со счета</string>
+    <string name="category_restaurant">Кафе и рестораны</string>
+    <string name="label_category">Категория</string>
+    <string name="label_comment">Комментарий</string>
+    <string name="button_make_transaction">Совершить транзакцию</string>
+    <string name="button_to_main_page">На главную</string>
+    <string name="label_last_name">Фамилия</string>
+    <string name="label_first_name">Имя</string>
+    <string name="label_patronymic">Отчество (если существует)</string>
+    <string name="label_birth_date">Дата рождения</string>
+    <string name="label_country">Страна</string>
+    <string name="label_town">Населённый пункт</string>
+    <string name="button_create">Создать</string>
+    <string name="country_russia">Россия</string>
+    <string name="country_uk">Соединённое королевство</string>
+    <string name="country_usa">Соединённые штаты Америки</string>
+    <string name="category_other">Прочие расходы</string>
+    <string name="exception_account_not_exists">Счёт с № %d не был найден</string>
+    <string name="exception_customer_not_exists">Клиент с ID = %d не был найден</string>
+
+
+</resources>

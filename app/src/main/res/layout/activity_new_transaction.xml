@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.NewTransactionActivity">
+
+    <ImageView
+        android:id="@+id/ic_transaction"
+        android:layout_width="60dp"
+        android:layout_height="66dp"
+        android:contentDescription="icon"
+        app:srcCompat="@android:drawable/ic_menu_set_as" />
+
+    <TextView
+        android:id="@+id/tv_new_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-black"
+        android:padding="15dp"
+        android:paddingTop="0dp"
+        android:text="@string/label_new_transaction"
+        android:textSize="30sp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tv_new_transaction"
+        android:background="@color/bank_green"
+        />
+
+    <LinearLayout
+        android:id="@+id/lin_lay_sender_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:orientation="horizontal"
+        android:paddingTop="2dp">
+
+        <TextView
+            android:id="@+id/l_sender_account_num"
+            android:layout_width="142dp"
+            android:layout_height="80dp"
+            android:fontFamily="sans-serif-black"
+            android:labelFor="@+id/et_sender_account_num"
+            android:paddingStart="10dp"
+            android:paddingTop="15dp"
+            android:text="@string/label_sender_account_number"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_sender_account_num"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_lay_receiver_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin_lay_sender_account"
+        android:orientation="horizontal"
+        android:paddingTop="15dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_receiver_account_num"
+            android:layout_width="142dp"
+            android:layout_height="80dp"
+            android:fontFamily="sans-serif-black"
+            android:labelFor="@+id/et_receiver_account_num"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/label_receiver_account_number"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_receiver_account_num"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textAlignment="textStart"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_lay_transaction_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin_lay_receiver_account"
+        android:orientation="horizontal"
+        android:paddingTop="15dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_transaction_sum"
+            android:layout_width="168dp"
+            android:layout_height="40dp"
+            android:fontFamily="sans-serif-black"
+            android:labelFor="@+id/et_transaction_sum"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/label_transaction_sum"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_transaction_sum"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textAlignment="textStart"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_lay_currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin_lay_transaction_sum"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/tv_currency"
+            android:layout_width="168dp"
+            android:layout_height="40dp"
+            android:fontFamily="sans-serif-black"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/label_currency"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/currency_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="48dp"
+            android:entries="@array/currencies" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_lay_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin_lay_currency"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="168dp"
+            android:layout_height="40dp"
+            android:fontFamily="sans-serif-black"
+            android:labelFor="@+id/et_currency"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/label_category"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="48dp"
+            android:entries="@array/categories"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_lay_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin_lay_category"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="168dp"
+            android:layout_height="60dp"
+            android:fontFamily="sans-serif-black"
+            android:labelFor="@+id/et_currency"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/label_comment"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_comment"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/b_make_transaction"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin_lay_comment"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/bank_green"
+        android:text="@string/button_make_transaction"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:icon="@android:drawable/stat_sys_upload"
+        app:strokeColor="@color/white" />
+
+    <View
+        android:id="@+id/bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/b_make_transaction"
+        android:layout_marginTop="10dp"
+        android:background="@color/bank_green"
+        />
+
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/b_make_transaction"
+        app:srcCompat="@drawable/logo"
+        android:padding="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_name" />
+
+
+
+</RelativeLayout>

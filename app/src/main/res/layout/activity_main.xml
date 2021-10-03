@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo"
+        android:padding="20dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/tv_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_logo"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-black"
+        android:padding="10dp"
+        android:text="@string/label_welcome"
+        android:textAlignment="center"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/b_acc_management"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_manage_accounts"
+        android:textSize="15sp"
+        app:icon="@android:drawable/ic_menu_manage"
+        app:strokeColor="@color/white"
+        android:textColor="@color/white"
+        android:layout_below="@+id/tv_welcome"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/bank_green"
+        />
+
+    <Button
+        android:id="@+id/b_new_account"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_new_account"
+        android:textSize="15sp"
+        app:icon="@android:drawable/ic_menu_add"
+        app:strokeColor="@color/white"
+        android:textColor="@color/white"
+        android:layout_below="@+id/b_acc_management"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/bank_green"
+        />
+
+    <Button
+        android:id="@+id/b_new_transaction"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_new_transaction"
+        android:textSize="15sp"
+        app:icon="@android:drawable/ic_menu_upload"
+        app:strokeColor="@color/white"
+        android:layout_below="@+id/b_new_account"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/bank_green"
+        android:textColor="@color/white"
+
+        />
+
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/label_version"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:padding="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>
+
