@@ -4,9 +4,14 @@ import java.util.Date;
 
 public class Card {
 
+    //ID
     private Long cardNumber;
 
     private BankAccount account;
+
+    private Long availableMoney;
+
+    private String holder;
 
     private Date validUntil;
 
@@ -15,6 +20,9 @@ public class Card {
     public Card(BankAccount account, Date validUntil) {
         this.account = account;
         this.validUntil = validUntil;
+    }
+
+    public Card() {
     }
 
     public Long getCardNumber() {
@@ -47,5 +55,21 @@ public class Card {
 
     public void setBlocked(boolean blocked) {
         isBlocked = blocked;
+    }
+
+    public String getHolder() {
+        return holder;
+    }
+
+    public void setHolder(String holder) {
+        this.holder = holder;
+    }
+
+    public Long getAvailableMoney() {
+        return availableMoney;
+    }
+
+    public void setAvailableMoney(Long availableMoney) {
+        this.availableMoney = availableMoney;
     }
 }

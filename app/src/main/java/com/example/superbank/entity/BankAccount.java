@@ -1,13 +1,11 @@
 package com.example.superbank.entity;
 
-import com.example.superbank.enums.Country;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class BankAccount {
 
+    //ID
     private Long accountId;
 
     private Customer customer;
@@ -33,12 +31,8 @@ public class BankAccount {
         return availableMoney;
     }
 
-    public boolean chargeOffMoney(Long amount) {
-        if (amount > availableMoney) {
-            return false;
-        }
-        availableMoney -= amount;
-        return true;
+    public void setAvailableMoney(Long availableMoney) {
+        this.availableMoney = availableMoney;
     }
 
     public void topUpMoney(Long money) {

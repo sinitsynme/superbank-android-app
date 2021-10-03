@@ -3,9 +3,11 @@ package com.example.superbank.entity;
 import com.example.superbank.enums.Country;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Customer {
 
+    //ID
     private Long customerId;
 
     private String firstName;
@@ -28,6 +30,9 @@ public class Customer {
         this.birthDate = birthDate;
         this.country = country;
         this.town = town;
+    }
+
+    public Customer() {
     }
 
     public Long getCustomerId() {
@@ -92,5 +97,18 @@ public class Customer {
 
     public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return firstName.equals(customer.firstName) && lastName.equals(customer.lastName) && Objects.equals(patronymic, customer.patronymic) && birthDate.equals(customer.birthDate) && country == customer.country && town.equals(customer.town);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, patronymic, birthDate, country, town);
     }
 }

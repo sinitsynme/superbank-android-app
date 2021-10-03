@@ -1,61 +1,47 @@
-package com.example.superbank.entity;
+package com.example.superbank.payload.response;
 
 import com.example.superbank.enums.TransactionCategory;
 
 import java.util.Currency;
-import java.util.Date;
 
-public class Transaction {
+public class TransactionResponseDto {
 
-    //ID
-    private Long transactionId;
+    private BankAccountResponseDto sender;
 
-    private BankAccount sender;
-
-    private BankAccount receiver;
+    private BankAccountResponseDto receiver;
 
     private Long amountOfMoney;
-
-    private Date transactionDate;
 
     private Currency currency;
 
     private TransactionCategory category;
 
-    public Transaction(BankAccount sender, BankAccount receiver, Long amountOfMoney, Currency currency,
-                       Date transactionDate, TransactionCategory category) {
+    private String comment;
+
+    public TransactionResponseDto(BankAccountResponseDto sender, BankAccountResponseDto receiver, Long amountOfMoney, Currency currency, TransactionCategory category) {
         this.sender = sender;
         this.receiver = receiver;
         this.amountOfMoney = amountOfMoney;
         this.currency = currency;
-        this.transactionDate = transactionDate;
         this.category = category;
     }
 
-    public Transaction() {
+    public TransactionResponseDto() {
     }
 
-    public Long getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public BankAccount getSender() {
+    public BankAccountResponseDto getSender() {
         return sender;
     }
 
-    public void setSender(BankAccount sender) {
+    public void setSender(BankAccountResponseDto sender) {
         this.sender = sender;
     }
 
-    public BankAccount getReceiver() {
+    public BankAccountResponseDto getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(BankAccount receiver) {
+    public void setReceiver(BankAccountResponseDto receiver) {
         this.receiver = receiver;
     }
 
@@ -75,19 +61,19 @@ public class Transaction {
         this.currency = currency;
     }
 
-    public Date getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(Date transactionDate) {
-        this.transactionDate = transactionDate;
-    }
-
     public TransactionCategory getCategory() {
         return category;
     }
 
     public void setCategory(TransactionCategory category) {
         this.category = category;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

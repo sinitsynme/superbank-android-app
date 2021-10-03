@@ -55,4 +55,9 @@ public class CustomerListRepository implements CustomerRepository {
     public void delete(Long entityId) {
         accountList.removeIf(it -> it.getCustomerId().equals(entityId));
     }
+
+    @Override
+    public boolean contains(Customer customer) {
+        return accountList.contains(customer);
+    }
 }

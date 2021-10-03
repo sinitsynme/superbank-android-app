@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerResponseDto get(Long entityId) {
         return customerMapper.toResponseDto(customerRepository.get(entityId)
-                .orElseThrow(() -> new ResourceNotFountException(String.format(String.valueOf(R.string.exception_account_not_exists), entityId))));
+                .orElseThrow(() -> new ResourceNotFountException(String.format(String.valueOf(R.string.exception_customer_not_exists), entityId))));
     }
 
     @Override

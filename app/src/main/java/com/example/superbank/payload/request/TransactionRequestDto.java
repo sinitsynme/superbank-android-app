@@ -1,14 +1,11 @@
-package com.example.superbank.entity;
+package com.example.superbank.payload.request;
 
+import com.example.superbank.entity.BankAccount;
 import com.example.superbank.enums.TransactionCategory;
 
 import java.util.Currency;
-import java.util.Date;
 
-public class Transaction {
-
-    //ID
-    private Long transactionId;
+public class TransactionRequestDto {
 
     private BankAccount sender;
 
@@ -16,31 +13,22 @@ public class Transaction {
 
     private Long amountOfMoney;
 
-    private Date transactionDate;
-
     private Currency currency;
 
     private TransactionCategory category;
 
-    public Transaction(BankAccount sender, BankAccount receiver, Long amountOfMoney, Currency currency,
-                       Date transactionDate, TransactionCategory category) {
+    private String comment;
+
+    public TransactionRequestDto(BankAccount sender, BankAccount receiver, Long amountOfMoney,
+                                 Currency currency, TransactionCategory category) {
         this.sender = sender;
         this.receiver = receiver;
         this.amountOfMoney = amountOfMoney;
         this.currency = currency;
-        this.transactionDate = transactionDate;
         this.category = category;
     }
 
-    public Transaction() {
-    }
-
-    public Long getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
+    public TransactionRequestDto() {
     }
 
     public BankAccount getSender() {
@@ -75,19 +63,19 @@ public class Transaction {
         this.currency = currency;
     }
 
-    public Date getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(Date transactionDate) {
-        this.transactionDate = transactionDate;
-    }
-
     public TransactionCategory getCategory() {
         return category;
     }
 
     public void setCategory(TransactionCategory category) {
         this.category = category;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

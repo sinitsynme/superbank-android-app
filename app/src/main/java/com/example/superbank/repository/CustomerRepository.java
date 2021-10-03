@@ -6,4 +6,6 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
     //signatures for additional methods special for CustomerRepository
 
+    boolean contains(Customer customer);
+
 }

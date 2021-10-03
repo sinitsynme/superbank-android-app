@@ -13,15 +13,17 @@ import org.mapstruct.factory.Mappers;
 public interface BankAccountMapper {
 
     BankAccountMapper INSTANCE = Mappers.getMapper(BankAccountMapper.class);
+    CustomerMapper customerMapperInstance = Mappers.getMapper(CustomerMapper.class);
 
     CustomerRequestDto toRequestDto(BankAccount entity);
 
     @InheritInverseConfiguration
     BankAccount toEntity(CustomerRequestDto requestDto);
 
-    BankAccountResponseDto toResponseDto(BankAccount entity);
+    default BankAccountResponseDto toResponseDto(BankAccount entity){
+        return new BankAccountResponseDto(entity.getAccountId(), customerMapperInstance.toResponseDto(entity.getCustomer()));
+    }
 
-    @InheritInverseConfiguration
     BankAccount toEntity(BankAccountResponseDto responseDto);
 
 

@@ -4,8 +4,11 @@ public class BankAccountResponseDto {
 
     private Long accountId;
 
-    public BankAccountResponseDto(Long accountId, String firstName, String lastName) {
+    private CustomerResponseDto customerResponseDto;
+
+    public BankAccountResponseDto(Long accountId, CustomerResponseDto customerResponseDto) {
         this.accountId = accountId;
+        this.customerResponseDto = customerResponseDto;
     }
 
     public BankAccountResponseDto() {
@@ -19,4 +22,11 @@ public class BankAccountResponseDto {
         this.accountId = accountId;
     }
 
+    public CustomerResponseDto getCustomerResponseDto() {
+        return customerResponseDto;
+    }
+
+    public void setCustomerResponseDto(CustomerResponseDto customerResponseDto) {
+        this.customerResponseDto = customerResponseDto;
+    }
 }
