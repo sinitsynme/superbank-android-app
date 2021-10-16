@@ -6,13 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".activity.AccountManagementActivity">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/lin_lay_header"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ic_manage_accounts"
+            android:layout_width="60dp"
+            android:layout_height="66dp"
+            android:contentDescription="icon"
+            tools:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+
+        <TextView
+            android:id="@+id/tv_new_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-black"
+            android:padding="15dp"
+            android:text="@string/label_manage_accounts"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/lin_lay_header"
+        android:background="@color/bank_green" />
+
+
+    <ScrollView
+        android:id="@+id/scroll_table"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="10dp">
+
+        <TableLayout
+            android:id="@+id/tbl_accounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TableLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/divider_2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_above="@+id/b_new_account"
+        android:layout_marginBottom="10dp"
+        android:background="@color/bank_green" />
+
+    <Button
+        android:id="@+id/b_new_account"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/label_manage_accounts"
-        android:textSize="30sp"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@color/bank_green"
+        android:text="@string/label_new_account"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:strokeColor="@color/white" />
 
 
 </RelativeLayout>
