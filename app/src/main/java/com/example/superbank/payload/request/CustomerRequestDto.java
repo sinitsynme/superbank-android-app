@@ -1,7 +1,5 @@
 package com.example.superbank.payload.request;
 
-import com.example.superbank.enums.Country;
-
 import java.util.Date;
 
 public class CustomerRequestDto {
@@ -14,11 +12,11 @@ public class CustomerRequestDto {
 
     private Date birthDate;
 
-    private Country country;
+    private String country;
 
     private String town;
 
-    public CustomerRequestDto(String firstName, String lastName, Date birthDate, Country country, String town) {
+    public CustomerRequestDto(String firstName, String lastName, Date birthDate, String country, String town) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -61,11 +59,11 @@ public class CustomerRequestDto {
         this.birthDate = birthDate;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
@@ -75,5 +73,17 @@ public class CustomerRequestDto {
 
     public void setTown(String town) {
         this.town = town;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerRequestDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", birthDate=" + birthDate +
+                ", country='" + country + '\'' +
+                ", town='" + town + '\'' +
+                '}';
     }
 }

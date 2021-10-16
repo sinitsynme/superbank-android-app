@@ -24,7 +24,7 @@ public interface CustomerMapper {
         customer.setFirstName(customer.getFirstName().toUpperCase(Locale.ROOT));
         customer.setLastName(customer.getLastName().toUpperCase(Locale.ROOT));
 
-        String patronymic = customer.getPatronymic();
+        String patronymic = requestDto.getPatronymic();
 
         if (patronymic != null && !patronymic.isEmpty()) {
             customer.setPatronymic(patronymic.toUpperCase(Locale.ROOT));

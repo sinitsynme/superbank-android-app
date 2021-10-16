@@ -4,9 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.superbank.entity.BankAccount;
 import com.example.superbank.entity.Customer;
-import com.example.superbank.repository.CrudRepository;
 import com.example.superbank.repository.CustomerRepository;
 
 import java.util.ArrayList;
@@ -16,14 +14,14 @@ import java.util.Optional;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class CustomerListRepository implements CustomerRepository {
 
-    private final List<Customer> accountList = new ArrayList<>();
+    private final List<Customer> customerList = new ArrayList<>();
 
-    private static long accountIdCounter = 1000000000;
+    private static long customerIdCounter = 1;
 
     @Override
     public Customer add(Customer entity) {
-        entity.setCustomerId(accountIdCounter++);
-        accountList.add(entity);
+        entity.setCustomerId(customerIdCounter++);
+        customerList.add(entity);
 
         return entity;
     }
@@ -31,33 +29,33 @@ public class CustomerListRepository implements CustomerRepository {
 
     @Override
     public Customer update(Customer entity, Long entityId) {
-        accountList.removeIf(it -> it.getCustomerId().equals(entityId));
-        accountList.add(entity);
+        customerList.removeIf(it -> it.getCustomerId().equals(entityId));
+        customerList.add(entity);
         return entity;
     }
 
     @Override
     public Optional<Customer> get(Long entityId) {
-        return accountList.stream().filter(it -> it.getCustomerId().equals(entityId)).findFirst();
+        return customerList.stream().filter(it -> it.getCustomerId().equals(entityId)).findFirst();
     }
 
     @Override
     public List<Customer> getAll() {
-        return accountList;
+        return customerList;
     }
 
     @Override
     public boolean existsById(Long entityId) {
-        return accountList.stream().anyMatch(it -> it.getCustomerId().equals(entityId));
+        return customerList.stream().anyMatch(it -> it.getCustomerId().equals(entityId));
     }
 
     @Override
     public void delete(Long entityId) {
-        accountList.removeIf(it -> it.getCustomerId().equals(entityId));
+        customerList.removeIf(it -> it.getCustomerId().equals(entityId));
     }
 
     @Override
     public boolean contains(Customer customer) {
-        return accountList.contains(customer);
+        return customerList.contains(customer);
     }
 }

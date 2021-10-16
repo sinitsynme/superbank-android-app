@@ -1,12 +1,16 @@
 package com.example.superbank.service.impl;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Build;
+import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
 import com.example.superbank.R;
 import com.example.superbank.entity.BankAccount;
 import com.example.superbank.entity.Customer;
+import com.example.superbank.exception.ExistingResourceException;
 import com.example.superbank.exception.ResourceNotFountException;
 import com.example.superbank.mapper.BankAccountMapper;
 import com.example.superbank.mapper.CustomerMapper;
@@ -25,17 +29,29 @@ import java.util.stream.Collectors;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class CustomerServiceImpl implements CustomerService {
 
+    private final BankAccountRepository bankAccountRepository;
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper = CustomerMapper.INSTANCE;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, BankAccountRepository bankAccountRepository) {
         this.customerRepository = customerRepository;
+        this.bankAccountRepository = bankAccountRepository;
     }
 
     @Override
     public CustomerResponseDto add(CustomerRequestDto requestDto) {
+        Customer customer = customerMapper.toEntity(requestDto);
+        if (customerRepository.contains(customer)){
+            throw new ExistingResourceException(String.valueOf(R.string.exception_customer_exists));
+        }
 
-        return customerMapper.toResponseDto(customerRepository.add(customerMapper.toEntity(requestDto)));
+        BankAccount bankAccount = new BankAccount();
+        customer.setBankAccount(bankAccount);
+        bankAccount.setCustomer(customer);
+
+        bankAccountRepository.add(bankAccount);
+
+        return customerMapper.toResponseDto(customerRepository.add(customer));
     }
 
 
@@ -55,6 +71,11 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerResponseDto update(CustomerRequestDto requestDto, Long entityId) {
         Customer customerFromDb = getSecured(entityId);
         Customer updatedCustomer = customerMapper.toEntity(requestDto);
+
+        if(customerRepository.contains(updatedCustomer)) {
+            throw new ExistingResourceException(String.valueOf(R.string.exception_customer_exists));
+        }
+
         updatedCustomer.setCustomerId(entityId);
         updatedCustomer.setBankAccount(customerFromDb.getBankAccount());
 
