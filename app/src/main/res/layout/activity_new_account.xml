@@ -193,7 +193,7 @@
             android:textSize="18sp" />
 
         <Spinner
-            android:id="@+id/currency_spinner"
+            android:id="@+id/spinner_country"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

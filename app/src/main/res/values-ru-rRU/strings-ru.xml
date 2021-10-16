@@ -29,6 +29,10 @@
     <string name="category_other">Прочие расходы</string>
     <string name="exception_account_not_exists">Счёт с № %d не был найден</string>
     <string name="exception_customer_not_exists">Клиент с ID = %d не был найден</string>
+    <string name="exception_customer_exists">Такой клиент уже существует</string>
+    <string name="exception_card_not_exists">Карты с № %d не было найдено</string>
+    <string name="label_account_info">Информация о счёте</string>
+    <string name="label_available_money">Остаток средств</string>
 
 
 </resources>

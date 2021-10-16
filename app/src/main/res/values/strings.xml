@@ -50,5 +50,9 @@
     <string name="category_other">Other expenses</string>
     <string name="exception_account_not_exists">Account with № %d wasn\'t found</string>
     <string name="exception_customer_not_exists">Customer with ID = %d wasn\'t found</string>
+    <string name="exception_customer_exists">This customer is existing</string>
+    <string name="exception_card_not_exists">Card with № %d wasn\'t found</string>
+    <string name="label_account_info">Account info</string>
+    <string name="label_available_money">Available money</string>
 
 </resources>

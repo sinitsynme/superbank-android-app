@@ -60,6 +60,7 @@
             android:minHeight="48dp"
             android:textAlignment="textStart"
             android:textSize="18sp"
+            android:maxLength="16"
             />
 
     </LinearLayout>
@@ -92,7 +93,8 @@
             android:inputType="numberDecimal"
             android:minHeight="48dp"
             android:textAlignment="textStart"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:maxLength="16"/>
 
     </LinearLayout>
 
@@ -124,7 +126,8 @@
             android:inputType="numberDecimal"
             android:minHeight="48dp"
             android:textAlignment="textStart"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:maxLength="10"/>
 
     </LinearLayout>
 
