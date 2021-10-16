@@ -1,16 +1,16 @@
 package com.example.superbank.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankAccount {
+public class BankAccount implements Serializable {
 
-    //ID
     private Long accountId;
 
     private Customer customer;
 
-    private Long availableMoney;
+    private Double availableMoney = 0.0;
 
     private List<Card> cards = new ArrayList<>();
 
@@ -27,11 +27,11 @@ public class BankAccount {
         this.accountId = accountId;
     }
 
-    public Long getAvailableMoney() {
+    public Double getAvailableMoney() {
         return availableMoney;
     }
 
-    public void setAvailableMoney(Long availableMoney) {
+    public void setAvailableMoney(Double availableMoney) {
         this.availableMoney = availableMoney;
     }
 

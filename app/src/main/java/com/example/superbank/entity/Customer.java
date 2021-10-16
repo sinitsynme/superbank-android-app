@@ -1,7 +1,5 @@
 package com.example.superbank.entity;
 
-import com.example.superbank.enums.Country;
-
 import java.util.Date;
 import java.util.Objects;
 
@@ -18,13 +16,13 @@ public class Customer {
 
     private Date birthDate;
 
-    private Country country;
+    private String country;
 
     private String town;
 
     private BankAccount bankAccount;
 
-    public Customer(String firstName, String lastName, Date birthDate, Country country, String town) {
+    public Customer(String firstName, String lastName, Date birthDate, String country, String town) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -75,11 +73,11 @@ public class Customer {
         this.birthDate = birthDate;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 

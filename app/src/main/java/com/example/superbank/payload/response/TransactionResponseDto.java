@@ -10,7 +10,7 @@ public class TransactionResponseDto {
 
     private BankAccountResponseDto receiver;
 
-    private Long amountOfMoney;
+    private Double amountOfMoney;
 
     private Currency currency;
 
@@ -18,7 +18,7 @@ public class TransactionResponseDto {
 
     private String comment;
 
-    public TransactionResponseDto(BankAccountResponseDto sender, BankAccountResponseDto receiver, Long amountOfMoney, Currency currency, TransactionCategory category) {
+    public TransactionResponseDto(BankAccountResponseDto sender, BankAccountResponseDto receiver, Double amountOfMoney, Currency currency, TransactionCategory category) {
         this.sender = sender;
         this.receiver = receiver;
         this.amountOfMoney = amountOfMoney;
@@ -45,11 +45,11 @@ public class TransactionResponseDto {
         this.receiver = receiver;
     }
 
-    public Long getAmountOfMoney() {
+    public Double getAmountOfMoney() {
         return amountOfMoney;
     }
 
-    public void setAmountOfMoney(Long amountOfMoney) {
+    public void setAmountOfMoney(Double amountOfMoney) {
         this.amountOfMoney = amountOfMoney;
     }
 

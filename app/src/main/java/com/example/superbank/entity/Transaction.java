@@ -14,7 +14,7 @@ public class Transaction {
 
     private BankAccount receiver;
 
-    private Long amountOfMoney;
+    private Double amountOfMoney;
 
     private Date transactionDate;
 
@@ -22,7 +22,7 @@ public class Transaction {
 
     private TransactionCategory category;
 
-    public Transaction(BankAccount sender, BankAccount receiver, Long amountOfMoney, Currency currency,
+    public Transaction(BankAccount sender, BankAccount receiver, Double amountOfMoney, Currency currency,
                        Date transactionDate, TransactionCategory category) {
         this.sender = sender;
         this.receiver = receiver;
@@ -59,11 +59,11 @@ public class Transaction {
         this.receiver = receiver;
     }
 
-    public Long getAmountOfMoney() {
+    public Double getAmountOfMoney() {
         return amountOfMoney;
     }
 
-    public void setAmountOfMoney(Long amountOfMoney) {
+    public void setAmountOfMoney(Double amountOfMoney) {
         this.amountOfMoney = amountOfMoney;
     }
 

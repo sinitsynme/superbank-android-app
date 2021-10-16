@@ -9,7 +9,7 @@ public class Card {
 
     private BankAccount account;
 
-    private Long availableMoney;
+    private Double availableMoney;
 
     private String holder;
 
@@ -65,11 +65,11 @@ public class Card {
         this.holder = holder;
     }
 
-    public Long getAvailableMoney() {
+    public Double getAvailableMoney() {
         return availableMoney;
     }
 
-    public void setAvailableMoney(Long availableMoney) {
+    public void setAvailableMoney(Double availableMoney) {
         this.availableMoney = availableMoney;
     }
 }

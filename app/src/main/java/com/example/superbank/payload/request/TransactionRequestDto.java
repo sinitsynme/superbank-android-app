@@ -1,17 +1,16 @@
 package com.example.superbank.payload.request;
 
-import com.example.superbank.entity.BankAccount;
 import com.example.superbank.enums.TransactionCategory;
 
 import java.util.Currency;
 
 public class TransactionRequestDto {
 
-    private BankAccount sender;
+    private Long senderNumber;
 
-    private BankAccount receiver;
+    private Long receiverNumber;
 
-    private Long amountOfMoney;
+    private Double amountOfMoney;
 
     private Currency currency;
 
@@ -19,10 +18,10 @@ public class TransactionRequestDto {
 
     private String comment;
 
-    public TransactionRequestDto(BankAccount sender, BankAccount receiver, Long amountOfMoney,
+    public TransactionRequestDto(Long senderNumber, Long receiverNumber, Double amountOfMoney,
                                  Currency currency, TransactionCategory category) {
-        this.sender = sender;
-        this.receiver = receiver;
+        this.senderNumber = senderNumber;
+        this.receiverNumber = receiverNumber;
         this.amountOfMoney = amountOfMoney;
         this.currency = currency;
         this.category = category;
@@ -31,27 +30,27 @@ public class TransactionRequestDto {
     public TransactionRequestDto() {
     }
 
-    public BankAccount getSender() {
-        return sender;
+    public Long getSenderNumber() {
+        return senderNumber;
     }
 
-    public void setSender(BankAccount sender) {
-        this.sender = sender;
+    public void setSenderNumber(Long senderNumber) {
+        this.senderNumber = senderNumber;
     }
 
-    public BankAccount getReceiver() {
-        return receiver;
+    public Long getReceiverNumber() {
+        return receiverNumber;
     }
 
-    public void setReceiver(BankAccount receiver) {
-        this.receiver = receiver;
+    public void setReceiverNumber(Long receiverNumber) {
+        this.receiverNumber = receiverNumber;
     }
 
-    public Long getAmountOfMoney() {
+    public Double getAmountOfMoney() {
         return amountOfMoney;
     }
 
-    public void setAmountOfMoney(Long amountOfMoney) {
+    public void setAmountOfMoney(Double amountOfMoney) {
         this.amountOfMoney = amountOfMoney;
     }
 
