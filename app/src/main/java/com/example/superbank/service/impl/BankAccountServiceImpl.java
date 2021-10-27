@@ -64,6 +64,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public void delete(Long entityId) {
         if(!existsById(entityId)) throw new ResourceNotFountException("Bank account doesn't exist");
+        customerRepository.delete(getSecured(entityId).getCustomer().getCustomerId());
         bankAccountRepository.delete(entityId);
     }
 
