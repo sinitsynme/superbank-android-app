@@ -10,6 +10,7 @@ import com.example.superbank.repository.TransactionRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class TransactionListRepository implements TransactionRepository {
@@ -51,5 +52,11 @@ public class TransactionListRepository implements TransactionRepository {
     @Override
     public void delete(Long entityId) {
         transactionList.removeIf(it -> it.getTransactionId().equals(entityId));
+    }
+
+    @Override
+    public List<Transaction> getAllTransactionsOfAccount(Long accountId) {
+        return transactionList.stream().filter(it -> it.getSender().getAccountId().equals(accountId)
+        || it.getReceiver().getAccountId().equals(accountId)).collect(Collectors.toList());
     }
 }

@@ -1,4 +1,4 @@
-package com.example.superbank.payload.request;
+package com.example.superbank.payload.request.transaction.requestDto;
 
 import com.example.superbank.enums.TransactionCategory;
 
@@ -6,9 +6,9 @@ import java.util.Currency;
 
 public class TransactionRequestDto {
 
-    private Long senderNumber;
+    private Long senderId;
 
-    private Long receiverNumber;
+    private Long receiverId;
 
     private Double amountOfMoney;
 
@@ -18,10 +18,10 @@ public class TransactionRequestDto {
 
     private String comment;
 
-    public TransactionRequestDto(Long senderNumber, Long receiverNumber, Double amountOfMoney,
+    public TransactionRequestDto(Long senderId, Long receiverId, Double amountOfMoney,
                                  Currency currency, TransactionCategory category) {
-        this.senderNumber = senderNumber;
-        this.receiverNumber = receiverNumber;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
         this.amountOfMoney = amountOfMoney;
         this.currency = currency;
         this.category = category;
@@ -30,20 +30,20 @@ public class TransactionRequestDto {
     public TransactionRequestDto() {
     }
 
-    public Long getSenderNumber() {
-        return senderNumber;
+    public Long getSenderId() {
+        return senderId;
     }
 
-    public void setSenderNumber(Long senderNumber) {
-        this.senderNumber = senderNumber;
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
     }
 
-    public Long getReceiverNumber() {
-        return receiverNumber;
+    public Long getReceiverId() {
+        return receiverId;
     }
 
-    public void setReceiverNumber(Long receiverNumber) {
-        this.receiverNumber = receiverNumber;
+    public void setReceiverId(Long receiverId) {
+        this.receiverId = receiverId;
     }
 
     public Double getAmountOfMoney() {

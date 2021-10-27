@@ -1,7 +1,10 @@
 package com.example.superbank.service.impl;
 
-import com.example.superbank.payload.request.TransactionRequestDto;
+import com.example.superbank.entity.BankAccount;
+import com.example.superbank.entity.Transaction;
+import com.example.superbank.payload.request.transaction.requestDto.TransactionRequestDto;
 import com.example.superbank.payload.response.TransactionResponseDto;
+import com.example.superbank.repository.BankAccountRepository;
 import com.example.superbank.repository.TransactionRepository;
 import com.example.superbank.service.TransactionService;
 
@@ -10,9 +13,12 @@ import java.util.List;
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
+    private final BankAccountRepository bankAccountRepository;
 
-    public TransactionServiceImpl(TransactionRepository transactionRepository) {
+    public TransactionServiceImpl(TransactionRepository transactionRepository,
+                                  BankAccountRepository bankAccountRepository) {
         this.transactionRepository = transactionRepository;
+        this.bankAccountRepository = bankAccountRepository;
     }
 
     @Override
@@ -43,5 +49,15 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void delete(Long entityId) {
 
+    }
+
+    @Override
+    public Transaction getSecured(Long entityId) {
+        return null;
+    }
+
+    @Override
+    public Transaction getAllSecured() {
+        return null;
     }
 }

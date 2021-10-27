@@ -4,10 +4,10 @@ import com.example.superbank.enums.TransactionCategory;
 
 import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 
 public class Transaction {
 
-    //ID
     private Long transactionId;
 
     private BankAccount sender;
@@ -22,14 +22,17 @@ public class Transaction {
 
     private TransactionCategory category;
 
+    private String comment;
+
     public Transaction(BankAccount sender, BankAccount receiver, Double amountOfMoney, Currency currency,
-                       Date transactionDate, TransactionCategory category) {
+                       Date transactionDate, TransactionCategory category, String comment) {
         this.sender = sender;
         this.receiver = receiver;
         this.amountOfMoney = amountOfMoney;
         this.currency = currency;
         this.transactionDate = transactionDate;
         this.category = category;
+        this.comment = comment;
     }
 
     public Transaction() {
@@ -89,5 +92,13 @@ public class Transaction {
 
     public void setCategory(TransactionCategory category) {
         this.category = category;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

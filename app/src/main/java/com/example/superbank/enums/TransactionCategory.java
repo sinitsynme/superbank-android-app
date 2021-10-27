@@ -5,5 +5,7 @@ public enum TransactionCategory {
     MONEY_TRANSFER,
     CAFE_AND_RESTAURANTS,
     SUPERMARKETS,
-    OTHER_EXPENSES
+    OTHER_EXPENSES,
+    CASH_SUPPLY,
+    ROLLBACK
 }

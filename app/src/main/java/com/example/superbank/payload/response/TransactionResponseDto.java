@@ -2,9 +2,33 @@ package com.example.superbank.payload.response;
 
 import com.example.superbank.enums.TransactionCategory;
 
+import java.util.ArrayList;
 import java.util.Currency;
 
+/**
+ * When {@link TransactionResponseDto } is being processed during the commit,
+ * firstly field error is being checked.
+ *
+ * If it is true, then errorCodes will be checked and user will get specified error messages in UI.
+ *
+ * If it is false, then the transaction has been committed successfully.
+ *
+ */
+
 public class TransactionResponseDto {
+
+    private boolean error = false;
+
+    /**
+     * Error codes:
+     *
+     *
+     * 1 - senderId is not valid
+     * 2 - receiverId is not valid
+     * 3 - not enough amount of money on sender's account
+     */
+
+    private ArrayList<Integer> errorCodes;
 
     private BankAccountResponseDto sender;
 
@@ -27,6 +51,22 @@ public class TransactionResponseDto {
     }
 
     public TransactionResponseDto() {
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
+
+    public ArrayList<Integer> getErrorCodes() {
+        return errorCodes;
+    }
+
+    public void setErrorCodes(ArrayList<Integer> errorCodes) {
+        this.errorCodes = errorCodes;
     }
 
     public BankAccountResponseDto getSender() {
