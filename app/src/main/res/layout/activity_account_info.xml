@@ -325,7 +325,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@color/light_red"
             android:text="@string/button_delete_account"
             android:textColor="@color/white"
@@ -361,5 +361,27 @@
             app:icon="@android:drawable/stat_sys_upload"
             app:strokeColor="@color/white" />
     </LinearLayout>
+
+    <View
+        android:id="@+id/bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/lin_lay_cash_button"
+        android:layout_marginTop="10dp"
+        android:background="@color/bank_green"
+        />
+
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottom_divider"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/app_name"
+        android:padding="5dp"
+        app:srcCompat="@drawable/logo" />
+
 
 </RelativeLayout>

@@ -3,14 +3,24 @@ package com.example.superbank.activity;
 import static android.view.ViewGroup.LayoutParams.*;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ResourceManagerInternal;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.accounts.Account;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -31,10 +41,15 @@ public class AccountManagementActivity extends AppCompatActivity implements View
 
     private static final int COLS = 1;
     private TableLayout accountTable;
+
     private final BankAccountService bankAccountService = new BankAccountServiceImpl(RepositoryStorage.bankAccountRepository,
             RepositoryStorage.customerRepository);
 
     private Button newAccountButton;
+
+    private AlertDialog alertDialog;
+
+    private int pressedId;
 
     private List<BankAccountResponseDto> responseDtoList;
 
@@ -48,6 +63,39 @@ public class AccountManagementActivity extends AppCompatActivity implements View
 
         newAccountButton = findViewById(R.id.b_new_account);
         newAccountButton.setOnClickListener(this);
+
+        final String[] options = new String[]{getResources().getString(R.string.label_new_transaction),
+                getResources().getString(R.string.label_account_info)};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.custom_select_dialog_item, options);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setNegativeButton(getResources().getString(R.string.button_back), (dialogInterface, i) -> dialogInterface.cancel());
+
+        builder.setTitle(getResources().getString(R.string.label_option));
+        builder.setIcon(R.drawable.ic_option_dialog);
+
+        builder.setAdapter(adapter, (dialogInterface, which) -> {
+            Intent intent;
+            if (which == 0) {
+                intent = new Intent(AccountManagementActivity.this, NewTransactionActivity.class);
+                intent.putExtra("sender", responseDtoList.get(pressedId).getAccountId());
+                startActivity(intent);
+
+            }
+            if (which == 1) {
+                BankAccount bankAccount = bankAccountService.getSecured(responseDtoList.get(pressedId).getAccountId());
+                intent = new Intent(AccountManagementActivity.this, AccountInfoActivity.class);
+                intent.putExtra(BankAccount.class.getSimpleName(), bankAccount);
+                startActivity(intent);
+            }
+
+        });
+
+        alertDialog = builder.create();
+
+
     }
 
     @Override
@@ -56,12 +104,13 @@ public class AccountManagementActivity extends AppCompatActivity implements View
         refreshData();
     }
 
-    private void refreshData(){
+    private void refreshData() {
         accountTable.removeAllViews();
+
 
         responseDtoList = bankAccountService.getAll();
 
-        if(responseDtoList.size() == 0){
+        if (responseDtoList.size() == 0) {
             TableRow tableRow = new TableRow(this);
             tableRow.setLayoutParams(new TableRow.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
             tableRow.setGravity(View.TEXT_ALIGNMENT_CENTER);
@@ -74,12 +123,12 @@ public class AccountManagementActivity extends AppCompatActivity implements View
             accountTable.addView(tableRow, 0);
         }
 
-        for(int i = 0; i < responseDtoList.size(); i++){
+        for (int i = 0; i < responseDtoList.size(); i++) {
             TableRow tableRow = new TableRow(this);
             tableRow.setLayoutParams(new TableRow.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
             tableRow.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
-            for(int j = 0; j < COLS; j++){
+            for (int j = 0; j < COLS; j++) {
 
                 Button button = new Button(this);
                 button.setId(i);
@@ -96,17 +145,20 @@ public class AccountManagementActivity extends AppCompatActivity implements View
 
     @Override
     public void onClick(View view) {
-        int id = view.getId();
-        Intent intent;
+        pressedId = view.getId();
 
-        if (id == R.id.b_new_account) intent = new Intent(this, NewAccountActivity.class);
-        else{
-            BankAccount bankAccount = bankAccountService.getSecured(responseDtoList.get(id).getAccountId());
-            intent = new Intent(this, AccountInfoActivity.class);
-            intent.putExtra(BankAccount.class.getSimpleName(), bankAccount);
+        if (pressedId == R.id.b_new_account) {
+
+            Intent intent;
+            intent = new Intent(this, NewAccountActivity.class);
+            startActivity(intent);
+
+        }
+        else {
+            alertDialog.show();
         }
 
-        startActivity(intent);
+
     }
 
     @Override
