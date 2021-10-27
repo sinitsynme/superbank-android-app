@@ -6,23 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".activity.AccountManagementActivity">
 
+
+    <ImageView
+        android:id="@+id/ic_manage_accounts"
+        android:layout_width="60dp"
+        android:layout_height="66dp"
+        android:contentDescription="icon"
+        tools:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+
     <LinearLayout
         android:id="@+id/lin_lay_header"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/ic_manage_accounts"
-            android:layout_width="60dp"
-            android:layout_height="66dp"
-            android:contentDescription="icon"
-            tools:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        >
 
         <TextView
             android:id="@+id/tv_new_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-black"
             android:padding="15dp"
             android:text="@string/label_manage_accounts"
@@ -47,8 +49,7 @@
         <TableLayout
             android:id="@+id/tbl_accounts"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TableLayout>
+            android:layout_height="wrap_content"></TableLayout>
 
     </ScrollView>
 

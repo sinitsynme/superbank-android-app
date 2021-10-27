@@ -46,11 +46,38 @@ public class AccountManagementActivity extends AppCompatActivity implements View
 
         accountTable = findViewById(R.id.tbl_accounts);
 
+        newAccountButton = findViewById(R.id.b_new_account);
+        newAccountButton.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        refreshData();
+    }
+
+    private void refreshData(){
+        accountTable.removeAllViews();
+
         responseDtoList = bankAccountService.getAll();
+
+        if(responseDtoList.size() == 0){
+            TableRow tableRow = new TableRow(this);
+            tableRow.setLayoutParams(new TableRow.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
+            tableRow.setGravity(View.TEXT_ALIGNMENT_CENTER);
+
+            TextView textView = new TextView(this);
+            textView.setText(getResources().getString(R.string.label_no_accounts));
+            textView.setTextSize(18);
+            tableRow.addView(textView, 0);
+
+            accountTable.addView(tableRow, 0);
+        }
 
         for(int i = 0; i < responseDtoList.size(); i++){
             TableRow tableRow = new TableRow(this);
             tableRow.setLayoutParams(new TableRow.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
+            tableRow.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
             for(int j = 0; j < COLS; j++){
 
@@ -59,16 +86,12 @@ public class AccountManagementActivity extends AppCompatActivity implements View
                 button.setOnClickListener(this);
                 button.setText(responseDtoList.get(i).getAccountId().toString());
                 button.setTextSize(15);
-                button.setPaddingRelative(10, 10, 0, 20);
                 tableRow.addView(button, j);
 
             }
             accountTable.addView(tableRow, i);
 
         }
-
-        newAccountButton = findViewById(R.id.b_new_account);
-        newAccountButton.setOnClickListener(this);
     }
 
     @Override

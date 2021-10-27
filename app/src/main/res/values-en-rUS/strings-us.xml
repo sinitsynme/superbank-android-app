@@ -33,6 +33,15 @@
     <string name="exception_card_not_exists">Card with № %d wasn\'t found</string>
     <string name="label_account_info">Account info</string>
     <string name="label_available_money">Available money</string>
+    <string name="label_customer_info">Customer info</string>
+    <string name="label_finances">Finances</string>
+    <string name="button_transaction_history">Transaction history</string>
+    <string name="button_delete_account">Delete account</string>
+    <string name="button_cash">Supply cash</string>
+    <string name="label_error">ERROR</string>
+    <string name="label_success">SUCCESS</string>
+    <string name="label_successful_removal">Customer was successfully deleted</string>
+    <string name="label_no_accounts">No registered accounts</string>
 
 
 </resources>

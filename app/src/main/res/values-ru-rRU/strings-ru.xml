@@ -33,6 +33,15 @@
     <string name="exception_card_not_exists">Карты с № %d не было найдено</string>
     <string name="label_account_info">Информация о счёте</string>
     <string name="label_available_money">Остаток средств</string>
+    <string name="label_customer_info">Информация о владельце</string>
+    <string name="label_finances">Финансы</string>
+    <string name="button_transaction_history">История транзакций</string>
+    <string name="button_delete_account">Удалить счёт</string>
+    <string name="button_cash">Внести наличные</string>
+    <string name="label_error">ОШИБКА</string>
+    <string name="label_success">УСПЕШНО</string>
+    <string name="label_successful_removal">Клиент был успешно удалён</string>
+    <string name="label_no_accounts">Нет зарегистрированных аккаунтов</string>
 
 
 </resources>
