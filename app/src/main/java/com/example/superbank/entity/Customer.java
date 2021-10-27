@@ -1,9 +1,10 @@
 package com.example.superbank.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Customer {
+public class Customer implements Serializable {
 
     //ID
     private Long customerId;
@@ -102,7 +103,9 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return firstName.equals(customer.firstName) && lastName.equals(customer.lastName) && Objects.equals(patronymic, customer.patronymic) && birthDate.equals(customer.birthDate) && country == customer.country && town.equals(customer.town);
+        return firstName.equals(customer.firstName) && lastName.equals(customer.lastName) && Objects.equals(patronymic, customer.patronymic)
+                && birthDate.getDay() == customer.birthDate.getDay() && birthDate.getMonth() == customer.birthDate.getMonth()
+                && birthDate.getYear() == customer.birthDate.getYear() && country.equals(customer.country) && town.equals(customer.town);
     }
 
     @Override
