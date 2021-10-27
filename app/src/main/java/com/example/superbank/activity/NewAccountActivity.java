@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.superbank.R;
-import com.example.superbank.dialog.OkDialog;
+import com.example.superbank.dialog.BasicAlertDialog;
 import com.example.superbank.payload.request.CustomerRequestDto;
 import com.example.superbank.repository.RepositoryStorage;
 import com.example.superbank.service.CustomerService;
@@ -126,12 +126,12 @@ public class NewAccountActivity extends AppCompatActivity implements View.OnClic
                 Bundle args = new Bundle();
                 args.putString("header", getResources().getString(R.string.label_error));
                 args.putString("msg", getResources().getString(R.string.exception_customer_exists));
-                OkDialog okDialog = new OkDialog();
-                okDialog.setArguments(args);
+                BasicAlertDialog basicAlertDialog = new BasicAlertDialog();
+                basicAlertDialog.setArguments(args);
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                okDialog.show(transaction, "error_customer_exists");
+                basicAlertDialog.show(transaction, "error_customer_exists");
 
             }
 

@@ -1,15 +1,9 @@
 package com.example.superbank.activity;
 
-import static android.content.DialogInterface.*;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,14 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.superbank.R;
-import com.example.superbank.dialog.OkDialog;
 import com.example.superbank.entity.BankAccount;
 import com.example.superbank.entity.Customer;
 import com.example.superbank.repository.RepositoryStorage;
 import com.example.superbank.service.BankAccountService;
-import com.example.superbank.service.CustomerService;
 import com.example.superbank.service.impl.BankAccountServiceImpl;
-import com.example.superbank.service.impl.CustomerServiceImpl;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
