@@ -42,6 +42,8 @@
     <string name="label_success">УСПЕШНО</string>
     <string name="label_successful_removal">Клиент был успешно удалён</string>
     <string name="label_no_accounts">Нет зарегистрированных аккаунтов</string>
+    <string name="button_back">Назад</string>
+    <string name="label_option">Выберите опцию</string>
 
 
 </resources>

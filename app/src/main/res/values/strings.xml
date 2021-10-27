@@ -63,5 +63,7 @@
     <string name="label_success">SUCCESS</string>
     <string name="label_successful_removal">Customer was successfully deleted</string>
     <string name="label_no_accounts">No registered accounts</string>
+    <string name="button_back">Back</string>
+    <string name="label_option">Choose an option</string>
 
 </resources>
