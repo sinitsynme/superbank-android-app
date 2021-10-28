@@ -41,7 +41,7 @@
         android:paddingTop="2dp">
 
         <TextView
-            android:id="@+id/l_sender_account_num"
+            android:id="@+id/tv_sender_account_num"
             android:layout_width="142dp"
             android:layout_height="80dp"
             android:fontFamily="sans-serif-black"
