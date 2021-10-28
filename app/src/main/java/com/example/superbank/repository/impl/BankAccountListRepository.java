@@ -8,6 +8,8 @@ import com.example.superbank.entity.BankAccount;
 import com.example.superbank.repository.BankAccountRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,7 @@ public class BankAccountListRepository implements BankAccountRepository {
     public BankAccount update(BankAccount entity, Long entityId) {
         accountList.removeIf(it -> it.getAccountId().equals(entityId));
         accountList.add(entity);
+        Collections.sort(accountList, Comparator.comparing(BankAccount::getAccountId));
 
         return entity;
     }
