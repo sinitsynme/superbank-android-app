@@ -15,6 +15,7 @@ import com.example.superbank.repository.CustomerRepository;
 import com.example.superbank.service.BankAccountService;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -53,7 +54,12 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public BankAccountResponseDto update(BankAccountRequestDto requestDto, Long entityId) {
-        return null;
+        BankAccount bankAccountFromDb = bankAccountRepository.get(entityId)
+                .orElseThrow(() -> new ResourceNotFountException(String.format(Locale.US,
+                        "Bank account with id = %d doesn't exist", entityId)));
+
+        bankAccountFromDb.setAvailableMoney(requestDto.getAvailableMoney());
+        return bankAccountMapper.toResponseDto(bankAccountRepository.update(bankAccountFromDb, entityId));
     }
 
     @Override
