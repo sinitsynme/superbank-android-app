@@ -3,20 +3,26 @@ package com.example.superbank.activity;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.superbank.R;
 import com.example.superbank.entity.BankAccount;
 import com.example.superbank.entity.Customer;
+import com.example.superbank.enums.TransactionCategory;
+import com.example.superbank.manager.TransactionManager;
 import com.example.superbank.repository.RepositoryStorage;
 import com.example.superbank.service.BankAccountService;
 import com.example.superbank.service.impl.BankAccountServiceImpl;
+import com.example.superbank.service.impl.TransactionServiceImpl;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -41,8 +47,11 @@ public class AccountInfoActivity extends AppCompatActivity implements View.OnCli
     private Button btnGetTransactionHistory;
 
 
-    private final BankAccountService customerService = new BankAccountServiceImpl(RepositoryStorage.bankAccountRepository,
+    private final BankAccountService bankAccountService = new BankAccountServiceImpl(RepositoryStorage.bankAccountRepository,
             RepositoryStorage.customerRepository);
+
+    private final TransactionManager transactionManager = new TransactionManager(bankAccountService,
+            new TransactionServiceImpl(RepositoryStorage.transactionRepository, RepositoryStorage.bankAccountRepository));
 
 
     @Override
@@ -100,12 +109,7 @@ public class AccountInfoActivity extends AppCompatActivity implements View.OnCli
         int id = view.getId();
 
         if(id == R.id.b_delete_account){
-            customerService.delete(bankAccount.getAccountId());
-
-
-            Bundle args = new Bundle();
-            args.putString("header", getResources().getString(R.string.label_success));
-            args.putString("msg", getResources().getString(R.string.label_successful_removal));
+            bankAccountService.delete(bankAccount.getAccountId());
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(getResources().getString(R.string.label_success))
@@ -122,6 +126,67 @@ public class AccountInfoActivity extends AppCompatActivity implements View.OnCli
 
         }
 
+        else if(id == R.id.b_cash){
+            showCashDialog();
+        }
 
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showCashDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.label_input_cash_value));
+
+        final EditText input = new EditText(this);
+
+        input.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+
+            double amountOfCash = Double.parseDouble(input.getText().toString());
+
+            if(amountOfCash == 0){
+                dialog.cancel();
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountInfoActivity.this);
+                builder1.setTitle(getResources().getString(R.string.label_error))
+                        .setMessage(getResources().getString(R.string.label_negative_amount_cash))
+                        .setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.cancel());
+
+                AlertDialog negativeMoneyDialog = builder1.create();
+                negativeMoneyDialog.show();
+                return;
+
+            }
+
+            transactionManager.doCashTransaction(bankAccount.getAccountId(), amountOfCash, TransactionCategory.CASH_SUPPLY);
+
+            AlertDialog.Builder successDialogBuilder = new AlertDialog.Builder(this);
+            successDialogBuilder.setTitle(getResources().getString(R.string.label_success))
+                    .setMessage(getResources().getString(R.string.label_successful_cash_suply))
+                    .setPositiveButton("OK", (dialogInterface, i) -> dialog.cancel());
+
+            AlertDialog successfulCashSupplyDialog = successDialogBuilder.create();
+
+            successfulCashSupplyDialog.show();
+
+            bankAccount = bankAccountService.getSecured(bankAccount.getAccountId());
+            availableMoneyTV.setText(bankAccount.getAvailableMoney().toString());
+        });
+
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, AccountManagementActivity.class);
+        startActivity(intent);
     }
 }
