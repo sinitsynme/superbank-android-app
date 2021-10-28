@@ -16,8 +16,8 @@
 
     <string-array name="currencies">
         <item>₽</item>
-        <item>$</item>
-        <item>€</item>
+<!--        <item>$</item>-->
+<!--        <item>€</item>-->
     </string-array>
 
     <string-array name="categories">
@@ -65,5 +65,10 @@
     <string name="label_no_accounts">No registered accounts</string>
     <string name="button_back">Back</string>
     <string name="label_option">Choose an option</string>
+    <string name="label_negative_amount_cash">Non-positive amount of supplied cash is not allowed!</string>
+    <string name="label_successful_cash_suply">The cash was supplied successfully</string>
+    <string name="label_input_cash_value">Type supplied cash value</string>
+    <string name="label_negative_transaction_sum">Non-positive transaction sum is not allowed</string>
+    <string name="label_successful_transaction">Transaction was successfully committed</string>
 
 </resources>

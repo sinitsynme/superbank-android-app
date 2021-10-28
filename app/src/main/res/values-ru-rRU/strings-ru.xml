@@ -44,6 +44,11 @@
     <string name="label_no_accounts">Нет зарегистрированных аккаунтов</string>
     <string name="button_back">Назад</string>
     <string name="label_option">Выберите опцию</string>
+    <string name="label_negative_amount_cash">Неположительное значение вносимой суммы недопустимо!</string>
+    <string name="label_successful_cash_suply">Наличные успешно внесены на счёт</string>
+    <string name="label_input_cash_value">Введите сумму вносимых наличных</string>
+    <string name="label_negative_transaction_sum">Введена неположительная сумма перевода</string>
+    <string name="label_successful_transaction">Транзакция успешно совершена</string>
 
 
 </resources>
