@@ -26,6 +26,9 @@ public class TransactionResponseDto {
      * 1 - senderId is not valid
      * 2 - receiverId is not valid
      * 3 - not enough amount of money on sender's account
+     * 4 - invalid category
+     * 5 - senderId and receiverId equal
+     *
      */
 
     private ArrayList<Integer> errorCodes;
