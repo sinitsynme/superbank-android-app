@@ -7,5 +7,6 @@ public enum TransactionCategory {
     SUPERMARKETS,
     OTHER_EXPENSES,
     CASH_SUPPLY,
+    CASH_WITHDRAW,
     ROLLBACK
 }
