@@ -2,11 +2,12 @@ package com.example.superbank.entity;
 
 import com.example.superbank.enums.TransactionCategory;
 
+import java.io.Serializable;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
 
-public class Transaction {
+public class Transaction implements Serializable {
 
     private Long transactionId;
 

@@ -1,8 +1,9 @@
 package com.example.superbank.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Card {
+public class Card implements Serializable {
 
     //ID
     private Long cardNumber;
