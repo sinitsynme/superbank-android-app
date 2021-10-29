@@ -1,6 +1,10 @@
 package com.example.superbank.activity;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -13,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.example.superbank.R;
 import com.example.superbank.manager.TransactionManager;
@@ -39,6 +44,10 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
 
     private Spinner spCurrency;
     private Spinner spCategory;
+
+    private NotificationManager notificationManager;
+    private int notificationId = 0;
+    private final String notificationChannelId = "com.example.superbank";
 
     //later in strings.xml
     private String[] errorStrings = {
@@ -84,6 +93,7 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
 
         butMakeTransaction.setOnClickListener(this);
 
+        setUpNotificationManager();
     }
 
 
@@ -154,7 +164,53 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
         AlertDialog successDialog = successDialogBuilder.create();
         successDialog.show();
 
+        showSuccessfulTransactionNotification(responseDto);
+    }
 
+    private void showSuccessfulTransactionNotification(TransactionResponseDto responseDto) {
+
+        StringBuilder notificationText = new StringBuilder();
+        notificationText
+                .append(responseDto.getSender().getAccountId()).append(" ")
+                .append(getResources().getString(R.string.label_transfer)).append(" ")
+                .append(responseDto.getAmountOfMoney()).append("₽").append(" ")
+//                .append(). for currency
+                .append(responseDto.getReceiver().getAccountId());
+
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder notifBuilder =
+                new NotificationCompat.Builder(this, notificationChannelId)
+                        .setSmallIcon(R.drawable.ic_option_dialog)
+                        .setContentTitle(getResources().getString(R.string.label_transaction_word))
+                        .setContentText(notificationText)
+                        .setContentIntent(resultPendingIntent)
+                        .setAutoCancel(true);
+
+        Notification notification = notifBuilder.build();
+
+        notificationManager.notify(notificationId++, notification);
+
+    }
+
+    private void setUpNotificationManager() {
+
+        notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            NotificationChannel channel = new NotificationChannel(
+                    notificationChannelId,
+                    "SuperBank",
+                    NotificationManager.IMPORTANCE_HIGH);
+
+            notificationManager.createNotificationChannel(channel);
+
+        }
     }
 
     private boolean areVitalTextViewsEmpty(String senderIdString, String receiverIdString, String transactionSumString) {
