@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -118,8 +119,19 @@ public class NewAccountActivity extends AppCompatActivity implements View.OnClic
 
             try {
                 customerService.add(customerRequestDto);
-                Intent intent = new Intent(this, AccountManagementActivity.class);
-                startActivity(intent);
+
+                AlertDialog.Builder successDialogBuilder = new AlertDialog.Builder(this);
+                successDialogBuilder.setTitle(getResources().getString(R.string.label_success))
+                        .setMessage(getResources().getString(R.string.label_successful_account_add))
+                        .setPositiveButton("OK", (dialogInterface, i) -> {
+                            dialogInterface.cancel();
+
+                            Intent intent = new Intent(this, AccountManagementActivity.class);
+                            startActivity(intent);
+                        });
+
+                AlertDialog successDialog = successDialogBuilder.create();
+                successDialog.show();
 
             }
             catch (RuntimeException e){
