@@ -49,6 +49,9 @@
     <string name="label_input_cash_value">Введите сумму вносимых наличных</string>
     <string name="label_negative_transaction_sum">Введена неположительная сумма перевода</string>
     <string name="label_successful_transaction">Транзакция успешно совершена</string>
+    <string name="label_transaction_word">Транзакция</string>
+    <string name="label_transfer">Перевод</string>
+    <string name="label_successful_account_add">Аккаунт был успешно добавлен</string>
 
 
 </resources>

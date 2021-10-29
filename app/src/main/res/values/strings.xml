@@ -70,5 +70,8 @@
     <string name="label_input_cash_value">Type supplied cash value</string>
     <string name="label_negative_transaction_sum">Non-positive transaction sum is not allowed</string>
     <string name="label_successful_transaction">Transaction was successfully committed</string>
+    <string name="label_transaction_word">Transaction</string>
+    <string name="label_transfer">Transfer</string>
+    <string name="label_successful_account_add">Account was added successfully</string>
 
 </resources>
