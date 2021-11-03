@@ -57,9 +57,6 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
     private Spinner spCurrency;
     private Spinner spCategory;
 
-
-    private int notificationId = 0;
-
     private String[] errorStrings;
     private String[] categoriesStrings;
     private String[] currenciesStrings;
@@ -95,7 +92,6 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
         tvSender = findViewById(R.id.tv_sender_account_num);
 
         spCategory = findViewById(R.id.category_spinner);
-
         spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, @TransactionCategory int i, long l) {
@@ -104,11 +100,22 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                chosenTransactionCategory = 0;
+                chosenTransactionCategory = TransactionCategory.MONEY_TRANSFER;
             }
         });
 
         spCurrency = findViewById(R.id.currency_spinner);
+        spCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                chosenCurrency = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                chosenCurrency = Currency.CURRENCY_RUB;
+            }
+        });
 
         Bundle params = getIntent().getExtras();
 
