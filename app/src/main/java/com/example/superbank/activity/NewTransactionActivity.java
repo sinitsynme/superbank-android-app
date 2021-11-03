@@ -9,7 +9,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -20,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 import com.example.superbank.R;
+import com.example.superbank.SuperBankApplication;
+import com.example.superbank.helper.NotificationHelper;
 import com.example.superbank.manager.TransactionManager;
 import com.example.superbank.payload.request.transaction.requestDto.TransactionRequestDtoBuilder;
 import com.example.superbank.payload.response.TransactionResponseDto;
@@ -27,8 +33,14 @@ import com.example.superbank.repository.RepositoryStorage;
 import com.example.superbank.service.BankAccountService;
 import com.example.superbank.service.impl.BankAccountServiceImpl;
 import com.example.superbank.service.impl.TransactionServiceImpl;
+import com.example.superbank.values.annotations.Currency;
+import com.example.superbank.values.annotations.TransactionCategory;
+import com.example.superbank.values.strings.StringsArrays;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class NewTransactionActivity extends AppCompatActivity implements View.OnClickListener {
@@ -45,20 +57,19 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
     private Spinner spCurrency;
     private Spinner spCategory;
 
-    private NotificationManager notificationManager;
+
     private int notificationId = 0;
-    private final String notificationChannelId = "com.example.superbank";
 
-    //later in strings.xml
-    private String[] errorStrings = {
-            "- The sender's ID is invalid",
-            "- The receiver's ID is invalid",
-            "- Not enough money to make transaction",
-            "- The sender's ID and the receiver's ID mustn't be equal",
+    private String[] errorStrings;
+    private String[] categoriesStrings;
+    private String[] currenciesStrings;
 
-            "- Invalid category" //for internal use
-    };
 
+    @TransactionCategory
+    private int chosenTransactionCategory;
+
+    @Currency
+    private int chosenCurrency;
 
     private final BankAccountService bankAccountService = new BankAccountServiceImpl(RepositoryStorage.bankAccountRepository,
             RepositoryStorage.customerRepository);
@@ -84,6 +95,19 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
         tvSender = findViewById(R.id.tv_sender_account_num);
 
         spCategory = findViewById(R.id.category_spinner);
+
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, @TransactionCategory int i, long l) {
+                chosenTransactionCategory = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                chosenTransactionCategory = 0;
+            }
+        });
+
         spCurrency = findViewById(R.id.currency_spinner);
 
         Bundle params = getIntent().getExtras();
@@ -94,11 +118,11 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
 
         butMakeTransaction.setOnClickListener(this);
 
-        setUpNotificationManager();
+        errorStrings = StringsArrays.ERROR_TRANSACTION_STRINGS;
+        categoriesStrings = StringsArrays.TRANSACTION_CATEGORY_STRINGS;
+        currenciesStrings = StringsArrays.CURRENCIES;
     }
 
-
-    //add category and currency to transaction
 
     @Override
     public void onClick(View view) {
@@ -127,10 +151,11 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
         builder.setReceiver(Long.parseLong(etReceiver.getText().toString()))
                 .setSender(Long.parseLong(etSender.getText().toString()))
                 .setAmountOfMoney(transactionSum)
-                .setComment(etComment.getText().toString());
+                .setComment(etComment.getText().toString())
+                .setCategory(chosenTransactionCategory)
+                .setCurrency(chosenCurrency);
 
         TransactionResponseDto responseDto = transactionManager.commitTransaction(builder.build());
-
 
         if (responseDto.isError()) {
 
@@ -138,7 +163,7 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
 
             ArrayList<Integer> errorCodes = responseDto.getErrorCodes();
             for (int i : errorCodes) {
-                errorString.append(errorStrings[i - 1]).append("\n");
+                errorString.append("· ").append(errorStrings[i - 1]).append("\n");
             }
 
             AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
@@ -176,50 +201,26 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
     }
 
     private void showSuccessfulTransactionNotification(TransactionResponseDto responseDto) {
+        String transfer = getResources().getString(R.string.label_transfer) + ": "
+                + responseDto.getAmountOfMoney() + currenciesStrings[chosenCurrency];
 
-        StringBuilder notificationText = new StringBuilder();
-        notificationText
-                .append(responseDto.getSender().getAccountId()).append(" ")
-                .append(getResources().getString(R.string.label_transfer)).append(" ")
-                .append(responseDto.getAmountOfMoney()).append("₽").append(" ")
-//                .append(). for currency
-                .append(responseDto.getReceiver().getAccountId());
+        String sender = getResources().getString(R.string.label_sender) + ": "
+                + responseDto.getSender().getAccountId();
 
+        String receiver = getResources().getString(R.string.label_receiver) + ": "
+                + responseDto.getReceiver().getAccountId();
 
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        String category = getResources().getString(R.string.label_category) + ": "
+                + categoriesStrings[chosenTransactionCategory];
 
-        NotificationCompat.Builder notifBuilder =
-                new NotificationCompat.Builder(this, notificationChannelId)
-                        .setSmallIcon(R.drawable.ic_option_dialog)
-                        .setContentTitle(getResources().getString(R.string.label_transaction_word))
-                        .setContentText(notificationText)
-                        .setContentIntent(resultPendingIntent)
-                        .setAutoCancel(true);
+        List<String> lines = Arrays.asList(transfer, sender, receiver, category);
 
-        Notification notification = notifBuilder.build();
-
-        notificationManager.notify(notificationId++, notification);
+        SuperBankApplication.notificationHelper.sendNotification(this,
+                MainActivity.class, lines);
 
     }
 
-    private void setUpNotificationManager() {
 
-        notificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            NotificationChannel channel = new NotificationChannel(
-                    notificationChannelId,
-                    "SuperBank",
-                    NotificationManager.IMPORTANCE_HIGH);
-
-            notificationManager.createNotificationChannel(channel);
-
-        }
-    }
 
     private boolean areVitalTextViewsEmpty(String senderIdString, String receiverIdString, String transactionSumString) {
         boolean isEmpty = senderIdString.isEmpty() || receiverIdString.isEmpty() || transactionSumString.isEmpty();

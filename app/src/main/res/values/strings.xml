@@ -4,7 +4,7 @@
     <string name="app_name" translatable="false">SuperBank</string>
     <string name="label_new_account">New account</string>
     <string name="label_manage_accounts">Account management</string>
-    <string name="label_version">V.1.0.ALPHA</string>
+    <string name="label_version">V.1.1.ALPHA</string>
     <string name="label_new_transaction">New Transaction</string>
     <string name="label_sender_account_number">№ of the sender\'s account/card</string>
     <string name="label_receiver_account_number">№ of the receiver\'s account/card</string>
@@ -73,5 +73,11 @@
     <string name="label_transaction_word">Transaction</string>
     <string name="label_transfer">Transfer</string>
     <string name="label_successful_account_add">Account was added successfully</string>
+    <string name="error_invalid_sender_id">The sender\'s ID is invalid</string>
+    <string name="error_invalid_receiver_id">The receiver\'s ID is invalid</string>
+    <string name="error_not_enough_money">Not enough money to make transaction</string>
+    <string name="error_sender_receiver_equal">The sender\'s ID and the receiver\'s ID mustn\'t be equal</string>
+    <string name="label_sender">Sender</string>
+    <string name="label_receiver">Receiver</string>
 
 </resources>

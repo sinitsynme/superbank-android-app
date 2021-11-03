@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.example.superbank.R;
 import com.example.superbank.entity.BankAccount;
 import com.example.superbank.entity.Customer;
-import com.example.superbank.enums.TransactionCategory;
+import com.example.superbank.values.annotations.TransactionCategory;
 import com.example.superbank.manager.TransactionManager;
 import com.example.superbank.repository.RepositoryStorage;
 import com.example.superbank.service.BankAccountService;

@@ -3,7 +3,7 @@
     <string name="label_welcome">Добро пожаловать!</string>
     <string name="label_new_account">Создание нового счета</string>
     <string name="label_manage_accounts">Управление счетами</string>
-    <string name="label_version">V.1.0.ALPHA (3 семестр)</string>
+    <string name="label_version">V.1.1.ALPHA (3 семестр)</string>
     <string name="label_new_transaction">Новая транзакция</string>
     <string name="label_sender_account_number">№ счёта/карты отправителя</string>
     <string name="label_receiver_account_number">№ счёта/карты получателя</string>
@@ -52,6 +52,12 @@
     <string name="label_transaction_word">Транзакция</string>
     <string name="label_transfer">Перевод</string>
     <string name="label_successful_account_add">Аккаунт был успешно добавлен</string>
+    <string name="error_invalid_sender_id">Номер счёта отправителя неверен</string>
+    <string name="error_invalid_receiver_id">Номер счёта получателя неверен</string>
+    <string name="error_not_enough_money">Недостаточно средств для совершения транзакции</string>
+    <string name="error_sender_receiver_equal">Номера счетов получателя и отправителя не должны совпадать</string>
+    <string name="label_sender">Отправитель</string>
+    <string name="label_receiver">Получатель</string>
 
 
 </resources>
