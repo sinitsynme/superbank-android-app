@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface TransactionService extends PayloadService<TransactionRequestDto, TransactionResponseDto, Long> {
 
-    TransactionResponseDto addSingleSidedTransaction(TransactionRequestDto requestDto);
-
     Transaction getSecured(Long entityId);
 
     List<Transaction> getAllSecured();

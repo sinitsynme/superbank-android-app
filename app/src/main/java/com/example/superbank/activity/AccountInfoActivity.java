@@ -163,7 +163,7 @@ public class AccountInfoActivity extends AppCompatActivity implements View.OnCli
 
             }
 
-            transactionManager.doCashTransaction(bankAccount.getAccountId(), amountOfCash, TransactionCategory.CASH_SUPPLY);
+            transactionManager.commitCashTransaction(bankAccount.getAccountId(), amountOfCash, TransactionCategory.CASH_SUPPLY);
 
             AlertDialog.Builder successDialogBuilder = new AlertDialog.Builder(this);
             successDialogBuilder.setTitle(getResources().getString(R.string.label_success))

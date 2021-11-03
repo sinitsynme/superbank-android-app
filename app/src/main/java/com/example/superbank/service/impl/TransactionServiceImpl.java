@@ -18,7 +18,6 @@ import com.example.superbank.service.TransactionService;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -38,6 +37,14 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionResponseDto add(TransactionRequestDto requestDto) {
 
+        if (requestDto.getCategory() == TransactionCategory.CASH_SUPPLY || requestDto.getCategory() == TransactionCategory.CASH_WITHDRAW) {
+            return addSingleSidedTransaction(requestDto);
+        }
+
+        return addDoubleSidedTransaction(requestDto);
+    }
+
+    private TransactionResponseDto addDoubleSidedTransaction(TransactionRequestDto requestDto) {
         BankAccount sender = bankAccountRepository.get(requestDto.getSenderId())
                 .orElseThrow(() -> new ResourceNotFountException("Sender bank account doesn't exist"));
         BankAccount receiver = bankAccountRepository.get(requestDto.getReceiverId())
@@ -61,10 +68,7 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionMapper.toResponseDto(transaction);
     }
 
-    //Cash supply and withdraw
-
-    @Override
-    public TransactionResponseDto addSingleSidedTransaction(TransactionRequestDto requestDto) {
+    private TransactionResponseDto addSingleSidedTransaction(TransactionRequestDto requestDto) {
         BankAccount receiver = bankAccountRepository.get(requestDto.getReceiverId())
                 .orElseThrow(() -> new ResourceNotFountException("Receiver bank account doesn't exist"));
 
@@ -89,7 +93,7 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionResponseDto get(Long entityId) {
         return transactionMapper.toResponseDto(transactionRepository
                 .get(entityId).orElseThrow(() -> new ResourceNotFountException(
-                                String.format(Locale.US, "Transaction with ID = %d wasn't found", entityId))));
+                        String.format(Locale.US, "Transaction with ID = %d wasn't found", entityId))));
     }
 
     @Override

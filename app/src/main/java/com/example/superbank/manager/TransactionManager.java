@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import com.example.superbank.entity.BankAccount;
 import com.example.superbank.entity.Transaction;
 import com.example.superbank.enums.TransactionCategory;
+import com.example.superbank.enums.TransactionError;
 import com.example.superbank.payload.request.transaction.requestDto.TransactionRequestDto;
 import com.example.superbank.payload.request.transaction.requestDto.TransactionRequestDtoBuilder;
 import com.example.superbank.payload.response.TransactionResponseDto;
@@ -14,6 +15,8 @@ import com.example.superbank.service.BankAccountService;
 import com.example.superbank.service.TransactionService;
 
 import java.util.ArrayList;
+
+import javax.net.ssl.SSLEngineResult;
 
 /**
  * {@link TransactionManager} is a link between UI and {@link TransactionService}.
@@ -47,15 +50,15 @@ public class TransactionManager {
         ArrayList<Integer> errorCodes = new ArrayList<>();
 
         if (!bankAccountService.existsById(senderId)) {
-            errorCodes.add(1);
+            errorCodes.add(TransactionError.SENDER_ID_IS_NOT_VALID);
         }
 
         if (!bankAccountService.existsById(receiverId)) {
-            errorCodes.add(2);
+            errorCodes.add(TransactionError.RECEIVER_ID_IS_NOT_VALID);
         }
 
         if (senderId.equals(receiverId)) {
-            errorCodes.add(5);
+            errorCodes.add(TransactionError.SENDER_ID_EQUALS_TO_RECEIVER_ID);
         }
 
         if (errorCodes.size() != 0) return formErrorDto(errorCodes);
@@ -63,7 +66,7 @@ public class TransactionManager {
         BankAccount sender = bankAccountService.getSecured(senderId);
 
         if (sender.getAvailableMoney() - amountOfMoney < 0) {
-            errorCodes.add(3);
+            errorCodes.add(TransactionError.NOT_ENOUGH_MONEY);
         }
 
         if (errorCodes.size() == 0) {
@@ -94,15 +97,15 @@ public class TransactionManager {
 
     //Refactoring will be soon
 
-    public TransactionResponseDto doCashTransaction(Long receiverId, Double amountOfMoney, TransactionCategory category) {
+    public TransactionResponseDto commitCashTransaction(Long receiverId, Double amountOfMoney, @TransactionCategory int category) {
         ArrayList<Integer> errorCodes = new ArrayList<>();
 
         if (!bankAccountService.existsById(receiverId))
-            errorCodes.add(1);
+            errorCodes.add(TransactionError.RECEIVER_ID_IS_NOT_VALID);
 
 
         if (category != TransactionCategory.CASH_WITHDRAW && category != TransactionCategory.CASH_SUPPLY)
-            errorCodes.add(4);
+            errorCodes.add(TransactionError.INVALID_CATEGORY);
 
         if (errorCodes.size() != 0) {
             return formErrorDto(errorCodes);
@@ -113,7 +116,7 @@ public class TransactionManager {
         builder.setCategory(category);
         builder.setReceiver(receiverId);
 
-        return transactionService.addSingleSidedTransaction(builder.build());
+        return transactionService.add(builder.build());
     }
 
     public TransactionResponseDto formErrorDto(ArrayList<Integer> errorCodes) {

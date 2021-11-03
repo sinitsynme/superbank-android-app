@@ -54,8 +54,9 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
             "- The sender's ID is invalid",
             "- The receiver's ID is invalid",
             "- Not enough money to make transaction",
-            "- Invalid category", //for internal use
-            "- The sender's ID and the receiver's ID mustn't be equal"
+            "- The sender's ID and the receiver's ID mustn't be equal",
+
+            "- Invalid category" //for internal use
     };
 
 
@@ -155,11 +156,18 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
         successDialogBuilder.setTitle(getResources().getString(R.string.label_success))
                 .setMessage(getResources().getString(R.string.label_successful_transaction))
                 .setPositiveButton("OK", (dialogInterface, i) -> {
+
+                    //SHOW SUCCESSFUL TRANSACTION ACTIVITY
                     dialogInterface.cancel();
 
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
-                });
+                }).setOnCancelListener(dialogInterface -> {
+            //SHOW SUCCESSFUL TRANSACTION ACTIVITY
+            dialogInterface.cancel();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
 
         AlertDialog successDialog = successDialogBuilder.create();
         successDialog.show();

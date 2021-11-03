@@ -1,10 +1,7 @@
 package com.example.superbank.mapper;
 
-import com.example.superbank.entity.Card;
 import com.example.superbank.entity.Transaction;
-import com.example.superbank.payload.request.CardRequestDto;
 import com.example.superbank.payload.request.transaction.requestDto.TransactionRequestDto;
-import com.example.superbank.payload.response.CardResponseDto;
 import com.example.superbank.payload.response.TransactionResponseDto;
 
 import org.mapstruct.InheritInverseConfiguration;
