@@ -1,7 +1,7 @@
 package com.example.superbank.payload.request.transaction.requestDto;
 
-import com.example.superbank.enums.Currency;
-import com.example.superbank.enums.TransactionCategory;
+import com.example.superbank.values.annotations.Currency;
+import com.example.superbank.values.annotations.TransactionCategory;
 
 public class TransactionRequestDtoBuilder {
 

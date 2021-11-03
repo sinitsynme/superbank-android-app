@@ -1,8 +1,8 @@
-package com.example.superbank.enums;
+package com.example.superbank.values.annotations;
 
-import static com.example.superbank.enums.Currency.CURRENCY_EUR;
-import static com.example.superbank.enums.Currency.CURRENCY_RUB;
-import static com.example.superbank.enums.Currency.CURRENCY_USD;
+import static com.example.superbank.values.annotations.Currency.CURRENCY_EUR;
+import static com.example.superbank.values.annotations.Currency.CURRENCY_RUB;
+import static com.example.superbank.values.annotations.Currency.CURRENCY_USD;
 
 import androidx.annotation.IntDef;
 

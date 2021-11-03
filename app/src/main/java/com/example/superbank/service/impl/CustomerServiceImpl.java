@@ -1,9 +1,6 @@
 package com.example.superbank.service.impl;
 
-import android.app.Application;
-import android.content.Context;
 import android.os.Build;
-import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
@@ -12,15 +9,11 @@ import com.example.superbank.entity.BankAccount;
 import com.example.superbank.entity.Customer;
 import com.example.superbank.exception.ExistingResourceException;
 import com.example.superbank.exception.ResourceNotFountException;
-import com.example.superbank.mapper.BankAccountMapper;
 import com.example.superbank.mapper.CustomerMapper;
 import com.example.superbank.payload.request.CustomerRequestDto;
-import com.example.superbank.payload.response.BankAccountResponseDto;
 import com.example.superbank.payload.response.CustomerResponseDto;
 import com.example.superbank.repository.BankAccountRepository;
 import com.example.superbank.repository.CustomerRepository;
-import com.example.superbank.repository.impl.CustomerListRepository;
-import com.example.superbank.service.BankAccountService;
 import com.example.superbank.service.CustomerService;
 
 import java.util.List;
@@ -41,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerResponseDto add(CustomerRequestDto requestDto) {
         Customer customer = customerMapper.toEntity(requestDto);
-        if (customerRepository.contains(customer)){
+        if (customerRepository.contains(customer)) {
             throw new ExistingResourceException(String.valueOf(R.string.exception_customer_exists));
         }
 
@@ -72,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customerFromDb = getSecured(entityId);
         Customer updatedCustomer = customerMapper.toEntity(requestDto);
 
-        if(customerRepository.contains(updatedCustomer)) {
+        if (customerRepository.contains(updatedCustomer)) {
             throw new ExistingResourceException(String.valueOf(R.string.exception_customer_exists));
         }
 
@@ -96,12 +89,13 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.delete(entityId);
     }
 
-
+    //Temporary
     public Customer getSecured(Long entityId) {
         return customerRepository.get(entityId)
                 .orElseThrow(() -> new ResourceNotFountException(String.format(String.valueOf(R.string.exception_customer_not_exists), entityId)));
     }
 
+    //Temporary
     public List<Customer> getAllSecured() {
         return customerRepository.getAll();
     }

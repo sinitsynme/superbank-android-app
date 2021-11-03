@@ -1,9 +1,7 @@
 package com.example.superbank.payload.request.transaction.requestDto;
 
-import androidx.annotation.CheckResult;
-
-import com.example.superbank.enums.TransactionCategory;
-import com.example.superbank.enums.Currency;
+import com.example.superbank.values.annotations.TransactionCategory;
+import com.example.superbank.values.annotations.Currency;
 
 public class TransactionRequestDto {
 

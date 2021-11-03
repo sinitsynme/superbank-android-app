@@ -10,8 +10,6 @@ public interface PayloadService<REQ, RESP, ID> {
 
     List<RESP> getAll();
 
-    RESP update(REQ requestDto, ID entityId);
-
     boolean existsById(ID entityId);
 
     void delete(ID entityId);

@@ -6,8 +6,8 @@ import androidx.annotation.RequiresApi;
 
 import com.example.superbank.entity.BankAccount;
 import com.example.superbank.entity.Transaction;
-import com.example.superbank.enums.TransactionCategory;
-import com.example.superbank.enums.TransactionError;
+import com.example.superbank.values.annotations.TransactionCategory;
+import com.example.superbank.values.annotations.TransactionError;
 import com.example.superbank.payload.request.transaction.requestDto.TransactionRequestDto;
 import com.example.superbank.payload.request.transaction.requestDto.TransactionRequestDtoBuilder;
 import com.example.superbank.payload.response.TransactionResponseDto;
@@ -15,8 +15,6 @@ import com.example.superbank.service.BankAccountService;
 import com.example.superbank.service.TransactionService;
 
 import java.util.ArrayList;
-
-import javax.net.ssl.SSLEngineResult;
 
 /**
  * {@link TransactionManager} is a link between UI and {@link TransactionService}.

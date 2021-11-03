@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.superbank.entity.BankAccount;
 import com.example.superbank.entity.Transaction;
-import com.example.superbank.enums.TransactionCategory;
+import com.example.superbank.values.annotations.TransactionCategory;
 import com.example.superbank.exception.ResourceNotFountException;
 import com.example.superbank.mapper.TransactionMapper;
 import com.example.superbank.payload.request.transaction.requestDto.TransactionRequestDto;
@@ -33,7 +33,6 @@ public class TransactionServiceImpl implements TransactionService {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-    //Add two-sided transaction
     @Override
     public TransactionResponseDto add(TransactionRequestDto requestDto) {
 
@@ -102,12 +101,6 @@ public class TransactionServiceImpl implements TransactionService {
                 .map(transactionMapper::toResponseDto).collect(Collectors.toList());
     }
 
-
-    //Soon
-    @Override
-    public TransactionResponseDto update(TransactionRequestDto requestDto, Long entityId) {
-        return null;
-    }
 
     @Override
     public boolean existsById(Long entityId) {

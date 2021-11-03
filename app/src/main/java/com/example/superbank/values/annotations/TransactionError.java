@@ -1,10 +1,10 @@
-package com.example.superbank.enums;
+package com.example.superbank.values.annotations;
 
-import static com.example.superbank.enums.TransactionError.INVALID_CATEGORY;
-import static com.example.superbank.enums.TransactionError.NOT_ENOUGH_MONEY;
-import static com.example.superbank.enums.TransactionError.RECEIVER_ID_IS_NOT_VALID;
-import static com.example.superbank.enums.TransactionError.SENDER_ID_EQUALS_TO_RECEIVER_ID;
-import static com.example.superbank.enums.TransactionError.SENDER_ID_IS_NOT_VALID;
+import static com.example.superbank.values.annotations.TransactionError.INVALID_CATEGORY;
+import static com.example.superbank.values.annotations.TransactionError.NOT_ENOUGH_MONEY;
+import static com.example.superbank.values.annotations.TransactionError.RECEIVER_ID_IS_NOT_VALID;
+import static com.example.superbank.values.annotations.TransactionError.SENDER_ID_EQUALS_TO_RECEIVER_ID;
+import static com.example.superbank.values.annotations.TransactionError.SENDER_ID_IS_NOT_VALID;
 
 import androidx.annotation.IntDef;
 

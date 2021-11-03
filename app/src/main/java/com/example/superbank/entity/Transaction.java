@@ -1,7 +1,7 @@
 package com.example.superbank.entity;
 
-import com.example.superbank.enums.TransactionCategory;
-import com.example.superbank.enums.Currency;
+import com.example.superbank.values.annotations.TransactionCategory;
+import com.example.superbank.values.annotations.Currency;
 
 import java.io.Serializable;
 import java.util.Date;

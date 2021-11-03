@@ -1,7 +1,7 @@
 package com.example.superbank.payload.response;
 
-import com.example.superbank.enums.Currency;
-import com.example.superbank.enums.TransactionCategory;
+import com.example.superbank.values.annotations.Currency;
+import com.example.superbank.values.annotations.TransactionCategory;
 
 import java.util.ArrayList;
 
