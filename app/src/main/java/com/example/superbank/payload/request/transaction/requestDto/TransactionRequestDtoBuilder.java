@@ -1,8 +1,7 @@
 package com.example.superbank.payload.request.transaction.requestDto;
 
+import com.example.superbank.enums.Currency;
 import com.example.superbank.enums.TransactionCategory;
-
-import java.util.Currency;
 
 public class TransactionRequestDtoBuilder {
 
@@ -12,9 +11,11 @@ public class TransactionRequestDtoBuilder {
 
     private Double amountOfMoney;
 
-    private Currency currency;
+    @Currency
+    private int currency;
 
-    private TransactionCategory category;
+    @TransactionCategory
+    private int category;
 
     private String comment;
 
@@ -31,7 +32,7 @@ public class TransactionRequestDtoBuilder {
         return this;
     }
 
-    public TransactionRequestDtoBuilder setCurrency(Currency currency){
+    public TransactionRequestDtoBuilder setCurrency(@Currency int currency){
         this.currency = currency;
         return this;
     }
@@ -41,7 +42,7 @@ public class TransactionRequestDtoBuilder {
         return this;
     }
 
-    public TransactionRequestDtoBuilder setCategory(TransactionCategory category){
+    public TransactionRequestDtoBuilder setCategory(@TransactionCategory int category){
         this.category = category;
         return this;
     }

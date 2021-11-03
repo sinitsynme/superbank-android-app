@@ -1,9 +1,9 @@
 package com.example.superbank.payload.response;
 
+import com.example.superbank.enums.Currency;
 import com.example.superbank.enums.TransactionCategory;
 
 import java.util.ArrayList;
-import java.util.Currency;
 
 /**
  * When {@link TransactionResponseDto } is being processed during the commit,
@@ -33,19 +33,26 @@ public class TransactionResponseDto {
 
     private ArrayList<Integer> errorCodes;
 
+    private Long transactionId;
+
     private BankAccountResponseDto sender;
 
     private BankAccountResponseDto receiver;
 
     private Double amountOfMoney;
 
-    private Currency currency;
+    @Currency
+    private int currency;
 
-    private TransactionCategory category;
+    @TransactionCategory
+    private int category;
 
     private String comment;
 
-    public TransactionResponseDto(BankAccountResponseDto sender, BankAccountResponseDto receiver, Double amountOfMoney, Currency currency, TransactionCategory category) {
+    public TransactionResponseDto(
+            BankAccountResponseDto sender, BankAccountResponseDto receiver,
+            Double amountOfMoney, @Currency int currency, @TransactionCategory int category) {
+
         this.sender = sender;
         this.receiver = receiver;
         this.amountOfMoney = amountOfMoney;
@@ -54,6 +61,14 @@ public class TransactionResponseDto {
     }
 
     public TransactionResponseDto() {
+    }
+
+    public Long getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
     }
 
     public boolean isError() {
@@ -96,19 +111,19 @@ public class TransactionResponseDto {
         this.amountOfMoney = amountOfMoney;
     }
 
-    public Currency getCurrency() {
+    public int getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(@Currency int currency) {
         this.currency = currency;
     }
 
-    public TransactionCategory getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(TransactionCategory category) {
+    public void setCategory(@TransactionCategory int category) {
         this.category = category;
     }
 

@@ -1,11 +1,10 @@
 package com.example.superbank.entity;
 
 import com.example.superbank.enums.TransactionCategory;
+import com.example.superbank.enums.Currency;
 
 import java.io.Serializable;
-import java.util.Currency;
 import java.util.Date;
-import java.util.Locale;
 
 public class Transaction implements Serializable {
 
@@ -19,14 +18,16 @@ public class Transaction implements Serializable {
 
     private Date transactionDate;
 
-    private Currency currency;
+    @Currency
+    private int currency;
 
-    private TransactionCategory category;
+    @TransactionCategory
+    private int category;
 
     private String comment;
 
-    public Transaction(BankAccount sender, BankAccount receiver, Double amountOfMoney, Currency currency,
-                       Date transactionDate, TransactionCategory category, String comment) {
+    public Transaction(BankAccount sender, BankAccount receiver, Double amountOfMoney, @Currency int currency,
+                       Date transactionDate, @TransactionCategory int category, String comment) {
         this.sender = sender;
         this.receiver = receiver;
         this.amountOfMoney = amountOfMoney;
@@ -71,11 +72,11 @@ public class Transaction implements Serializable {
         this.amountOfMoney = amountOfMoney;
     }
 
-    public Currency getCurrency() {
+    public int getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(@Currency int currency) {
         this.currency = currency;
     }
 
@@ -87,11 +88,11 @@ public class Transaction implements Serializable {
         this.transactionDate = transactionDate;
     }
 
-    public TransactionCategory getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(TransactionCategory category) {
+    public void setCategory(@TransactionCategory int category) {
         this.category = category;
     }
 

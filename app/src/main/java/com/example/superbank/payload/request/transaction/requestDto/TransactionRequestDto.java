@@ -1,8 +1,9 @@
 package com.example.superbank.payload.request.transaction.requestDto;
 
-import com.example.superbank.enums.TransactionCategory;
+import androidx.annotation.CheckResult;
 
-import java.util.Currency;
+import com.example.superbank.enums.TransactionCategory;
+import com.example.superbank.enums.Currency;
 
 public class TransactionRequestDto {
 
@@ -12,14 +13,16 @@ public class TransactionRequestDto {
 
     private Double amountOfMoney;
 
-    private Currency currency;
+    @Currency
+    private int currency;
 
-    private TransactionCategory category;
+    @TransactionCategory
+    private int category;
 
     private String comment;
 
     public TransactionRequestDto(Long senderId, Long receiverId, Double amountOfMoney,
-                                 Currency currency, TransactionCategory category) {
+                                 @Currency int currency, @TransactionCategory int category) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.amountOfMoney = amountOfMoney;
@@ -54,19 +57,19 @@ public class TransactionRequestDto {
         this.amountOfMoney = amountOfMoney;
     }
 
-    public Currency getCurrency() {
+    public int getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(@Currency int currency) {
         this.currency = currency;
     }
 
-    public TransactionCategory getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(TransactionCategory category) {
+    public void setCategory(@TransactionCategory int category) {
         this.category = category;
     }
 
