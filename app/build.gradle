@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
 }
 
+//remove comments from code to turn Firebase on
+//apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdk 30
 
@@ -39,6 +42,10 @@ dependencies {
 
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    //remove comments from code to turn Firebase on
+//    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+//    implementation 'com.google.firebase:firebase-analytics'
 }
 
 
