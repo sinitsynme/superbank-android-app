@@ -1,56 +1,42 @@
 package com.example.superbank.entity;
 
-import com.example.superbank.enums.Country;
-
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class BankAccount {
+public class BankAccount implements Serializable {
 
-    private Long accountId;
+    private int accountNumber;
 
     private Customer customer;
 
-    private Long availableMoney;
+    private Double availableMoney = 0.0;
 
-    private List<Card> cards = new ArrayList<>();
+    private String objectId;
 
     private List<Transaction> transactionHistory = new ArrayList<>();
 
     public BankAccount() {
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    public Long getAvailableMoney() {
+    public Double getAvailableMoney() {
         return availableMoney;
     }
 
-    public boolean chargeOffMoney(Long amount) {
-        if (amount > availableMoney) {
-            return false;
-        }
-        availableMoney -= amount;
-        return true;
+    public void setAvailableMoney(Double availableMoney) {
+        this.availableMoney = availableMoney;
     }
 
     public void topUpMoney(Long money) {
         availableMoney += money;
-    }
-
-    public List<Card> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
     }
 
     public List<Transaction> getTransactionHistory() {
@@ -67,5 +53,13 @@ public class BankAccount {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 }

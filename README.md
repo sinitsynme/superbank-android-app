@@ -1,9 +1,14 @@
 # superbank-android-app
 
-An Android application of a simple transaction system!
+An Android application of a simple transaction system
 
-The infrastructure at this point hasn't Dependency Injection (DI) turned on. Later on.
+To work with the realtime system you have to create an application in Backendless -> https://backendless.com/ 
+and to add your API_KEY, APPLICATION_ID and SERVER_URL values in /app/src/main/java/com/example/superbank/values/Defaults.java
 
-The infrastructure at this point hasn't any database connected to. Now it is working with manual list-repositories.
+Supports: 
+1) Signing in ang up using BackendlessUserService
+2) Making transactions between accounts using Backendless API (SDK for Android)
 
+The app works with Realtime Database provided by Backendless.
 
+Raw version of app, still needs to be improved.

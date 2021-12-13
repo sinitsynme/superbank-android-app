@@ -1,12 +1,10 @@
 package com.example.superbank.entity;
 
-import com.example.superbank.enums.Country;
-
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
-public class Customer {
-
-    private Long customerId;
+public class Customer implements Serializable {
 
     private String firstName;
 
@@ -16,13 +14,15 @@ public class Customer {
 
     private Date birthDate;
 
-    private Country country;
+    private String country;
 
     private String town;
 
     private BankAccount bankAccount;
 
-    public Customer(String firstName, String lastName, Date birthDate, Country country, String town) {
+    private String objectId;
+
+    public Customer(String firstName, String lastName, Date birthDate, String country, String town) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -30,12 +30,7 @@ public class Customer {
         this.town = town;
     }
 
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public Customer() {
     }
 
     public String getFirstName() {
@@ -70,11 +65,11 @@ public class Customer {
         this.birthDate = birthDate;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
@@ -92,5 +87,28 @@ public class Customer {
 
     public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return firstName.equals(customer.firstName) && lastName.equals(customer.lastName) && Objects.equals(patronymic, customer.patronymic)
+                && birthDate.getDay() == customer.birthDate.getDay() && birthDate.getMonth() == customer.birthDate.getMonth()
+                && birthDate.getYear() == customer.birthDate.getYear() && country.equals(customer.country) && town.equals(customer.town);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, patronymic, birthDate, country, town);
     }
 }

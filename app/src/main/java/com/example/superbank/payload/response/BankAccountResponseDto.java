@@ -2,21 +2,31 @@ package com.example.superbank.payload.response;
 
 public class BankAccountResponseDto {
 
-    private Long accountId;
+    private Integer accountId;
 
-    public BankAccountResponseDto(Long accountId, String firstName, String lastName) {
+    private CustomerResponseDto customerResponseDto;
+
+    public BankAccountResponseDto(Integer accountId, CustomerResponseDto customerResponseDto) {
         this.accountId = accountId;
+        this.customerResponseDto = customerResponseDto;
     }
 
     public BankAccountResponseDto() {
     }
 
-    public Long getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Long accountId) {
+    public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
 
+    public CustomerResponseDto getCustomerResponseDto() {
+        return customerResponseDto;
+    }
+
+    public void setCustomerResponseDto(CustomerResponseDto customerResponseDto) {
+        this.customerResponseDto = customerResponseDto;
+    }
 }
