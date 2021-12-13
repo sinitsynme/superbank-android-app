@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bank_green">#008000</color>
     <color name="light_red">#CD5C5C</color>
+    <color name="dark_aqua">#006060</color>
+    <color name="deep_purple">#3F076C</color>
+    <color name="berrish_red">#96001B</color>
 </resources>

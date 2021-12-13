@@ -13,12 +13,7 @@ public class StringsArrays {
 
     public static final Resources resources = SuperBankApplication.getRes();
 
-    public static final String[] ERROR_TRANSACTION_STRINGS = {
-            resources.getString(R.string.error_invalid_sender_id),
-            resources.getString(R.string.error_invalid_receiver_id),
-            resources.getString(R.string.error_not_enough_money),
-            resources.getString(R.string.error_sender_receiver_equal)
-    };
+    public static final String[] ERROR_TRANSACTION_STRINGS = resources.getStringArray(R.array.transaction_errors);
 
     public static final String[] TRANSACTION_CATEGORY_STRINGS = resources.getStringArray(R.array.categories);
 

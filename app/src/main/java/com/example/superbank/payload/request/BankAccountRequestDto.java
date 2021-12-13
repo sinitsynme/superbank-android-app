@@ -2,18 +2,18 @@ package com.example.superbank.payload.request;
 
 public class BankAccountRequestDto {
 
-    private Long customerId;
+    private String customerId;
     private Double availableMoney = 0.0;
 
-    public BankAccountRequestDto(Long customerId) {
+    public BankAccountRequestDto(String customerId) {
         this.customerId = customerId;
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

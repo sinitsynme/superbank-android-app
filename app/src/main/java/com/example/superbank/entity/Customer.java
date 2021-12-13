@@ -6,9 +6,6 @@ import java.util.Objects;
 
 public class Customer implements Serializable {
 
-    //ID
-    private Long customerId;
-
     private String firstName;
 
     private String lastName;
@@ -23,6 +20,8 @@ public class Customer implements Serializable {
 
     private BankAccount bankAccount;
 
+    private String objectId;
+
     public Customer(String firstName, String lastName, Date birthDate, String country, String town) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,14 +31,6 @@ public class Customer implements Serializable {
     }
 
     public Customer() {
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
     }
 
     public String getFirstName() {
@@ -96,6 +87,14 @@ public class Customer implements Serializable {
 
     public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 
     @Override

@@ -3,10 +3,10 @@
     <string name="label_welcome">Добро пожаловать!</string>
     <string name="label_new_account">Создание нового счета</string>
     <string name="label_manage_accounts">Управление счетами</string>
-    <string name="label_version">V.1.1.ALPHA (3 семестр)</string>
+    <string name="label_version">V.2.0.ALPHA (3 семестр)</string>
     <string name="label_new_transaction">Новая транзакция</string>
     <string name="label_sender_account_number">№ счёта/карты отправителя</string>
-    <string name="label_receiver_account_number">№ счёта/карты получателя</string>
+    <string name="label_receiver_account_number">№ счёта получателя</string>
     <string name="label_transaction_sum">Сумма</string>
     <string name="label_currency">Валюта</string>
     <string name="category_supermarket">Супермаркеты</string>
@@ -37,7 +37,7 @@
     <string name="label_finances">Финансы</string>
     <string name="button_transaction_history">История транзакций</string>
     <string name="button_delete_account">Удалить счёт</string>
-    <string name="button_cash">Внести наличные</string>
+    <string name="button_supply_cash">Внести наличные</string>
     <string name="label_error">ОШИБКА</string>
     <string name="label_success">УСПЕШНО</string>
     <string name="label_successful_removal">Клиент был успешно удалён</string>
@@ -46,7 +46,7 @@
     <string name="label_option">Выберите опцию</string>
     <string name="label_negative_amount_cash">Неположительное значение вносимой суммы недопустимо!</string>
     <string name="label_successful_cash_suply">Наличные успешно внесены на счёт</string>
-    <string name="label_input_cash_value">Введите сумму вносимых наличных</string>
+    <string name="label_supplied_cash_value">Введите сумму вносимых наличных</string>
     <string name="label_negative_transaction_sum">Введена неположительная сумма перевода</string>
     <string name="label_successful_transaction">Транзакция успешно совершена</string>
     <string name="label_transaction_word">Транзакция</string>
@@ -58,6 +58,23 @@
     <string name="error_sender_receiver_equal">Номера счетов получателя и отправителя не должны совпадать</string>
     <string name="label_sender">Отправитель</string>
     <string name="label_receiver">Получатель</string>
+    <string name="label_registration_1">Регистрация - Шаг 1</string>
+    <string name="label_login">SuperBank Вход</string>
+    <string name="label_password">Пароль</string>
+    <string name="label_email">Электронная почта</string>
+    <string name="action_sign_in">Вход</string>
+    <string name="label_username">Имя пользователя</string>
+    <string name="label_confirm_password">Подтверждение пароля</string>
+    <string name="button_register">Зарегистрироваться</string>
+    <string name="button_login">Войти</string>
+    <string name="button_next_step">Дальше</string>
+    <string name="label_registration_2">Регистрация - Шаг 2</string>
+    <string name="button_logout">Выход из системы</string>
+    <string name="label_balance">Баланс</string>
+    <string name="label_account_number">Ваш номер счёта</string>
+    <string name="button_withdraw_cash">Снять наличные</string>
+    <string name="error_invalid_category">Выбранная категория неверна</string>
+    <string name="error_unidentified">Неизвестная ошибка</string>
 
 
 </resources>

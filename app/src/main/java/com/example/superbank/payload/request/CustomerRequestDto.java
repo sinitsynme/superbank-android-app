@@ -1,8 +1,9 @@
 package com.example.superbank.payload.request;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class CustomerRequestDto {
+public class CustomerRequestDto implements Serializable {
 
     private String firstName;
 

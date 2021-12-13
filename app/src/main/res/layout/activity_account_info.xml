@@ -6,367 +6,264 @@
     android:layout_height="match_parent"
     tools:context=".activity.AccountInfoActivity">
 
-    <ImageView
-        android:id="@+id/ic_new_account"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:contentDescription="icon"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+    <LinearLayout
+        android:id="@+id/lin_lay_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_new_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="sans-serif-black"
-        android:padding="7dp"
-        android:text="@string/label_account_info"
-        android:textSize="30sp" />
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_account" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="@string/label_customer_info"
+            android:textSize="30sp" />
+    </LinearLayout>
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_below="@+id/tv_new_account"
+        android:layout_below="@+id/lin_lay_header"
         android:background="@color/bank_green" />
-
-    <TextView
-        android:id="@+id/l_customer_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_centerHorizontal="true"
-        android:text="@string/label_customer_info"></TextView>
 
     <LinearLayout
         android:id="@+id/lin_lay_first_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/l_customer_info"
-        android:orientation="horizontal"
-        android:paddingTop="2dp">
+        android:layout_below="@+id/divider"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/l_first_name"
-            android:layout_width="142dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:fontFamily="sans-serif-black"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
+            android:labelFor="@+id/et_first_name"
+            android:paddingTop="15dp"
             android:text="@string/label_first_name"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_first_name"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
-            android:minHeight="30dp"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:textAlignment="textEnd"
+            android:textSize="22sp"
             android:maxLength="40"
-            />
+            tools:ignore="SpeakableTextPresentCheck"/>
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/lin_lay_last_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lin_lay_first_name"
-        android:orientation="horizontal"
-        android:paddingTop="2dp">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/l_last_name"
-            android:layout_width="142dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:fontFamily="sans-serif-black"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
+            android:labelFor="@+id/et_last_name"
+            android:paddingTop="15dp"
             android:text="@string/label_last_name"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_last_name"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
-            android:minHeight="30dp"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:textAlignment="textEnd"
+            android:textSize="22sp"
             android:maxLength="40"
-            />
+            tools:ignore="SpeakableTextPresentCheck"/>
 
     </LinearLayout>
 
+
     <LinearLayout
         android:id="@+id/lin_lay_patronymic"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lin_lay_last_name"
-        android:orientation="horizontal"
-        android:paddingTop="2dp">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/l_patronymic"
-            android:layout_width="142dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:width="150dp"
             android:fontFamily="sans-serif-black"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
+            android:labelFor="@+id/et_last_name"
+            android:paddingTop="15dp"
             android:text="@string/label_patronymic"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_patronymic"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
             android:importantForAutofill="no"
-            android:minHeight="48dp"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
             android:maxLength="40"
+            android:textAlignment="textEnd"
+            android:textSize="22sp"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lin_lay_birth_date"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lin_lay_patronymic"
-        android:orientation="horizontal"
-        android:paddingTop="5dp">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/l_birth_date"
-            android:layout_width="142dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:width="120dp"
             android:fontFamily="sans-serif-black"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
+            android:labelFor="@+id/et_last_name"
+            android:paddingTop="15dp"
             android:text="@string/label_birth_date"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_birth_date"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
-            android:minHeight="30dp"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:textAlignment="textEnd"
+            android:textSize="22sp"
             android:maxLength="40"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"/>
 
     </LinearLayout>
 
+
     <LinearLayout
         android:id="@+id/lin_lay_country"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lin_lay_birth_date"
-        android:orientation="horizontal"
-        android:paddingTop="2dp">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/l_country"
-            android:layout_width="142dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:width="120dp"
             android:fontFamily="sans-serif-black"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
+            android:labelFor="@+id/et_last_name"
+            android:paddingTop="15dp"
             android:text="@string/label_country"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_country"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
             android:importantForAutofill="no"
-            android:minHeight="30dp"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
             android:maxLength="40"
+            android:textAlignment="textEnd"
+            android:textSize="22sp"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
+
     <LinearLayout
         android:id="@+id/lin_lay_town"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lin_lay_country"
-        android:orientation="horizontal"
-        android:paddingTop="2dp">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/l_town"
-            android:layout_width="142dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:width="120dp"
             android:fontFamily="sans-serif-black"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
+            android:labelFor="@+id/et_last_name"
+            android:paddingTop="15dp"
             android:text="@string/label_town"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_town"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
-            android:minHeight="50dp"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            android:maxLength="40"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/l_finances"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lin_lay_town"
-        android:layout_centerHorizontal="true"
-        android:text="@string/label_finances"></TextView>
-
-    <LinearLayout
-        android:id="@+id/lin_lay_currency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/l_finances"
-        android:orientation="horizontal"
-        android:paddingTop="2dp">
-
-        <TextView
-            android:id="@+id/l_currency"
-            android:layout_width="142dp"
-            android:layout_height="30dp"
-            android:fontFamily="sans-serif-black"
-            android:labelFor="@+id/et_last_name"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:text="@string/label_currency"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_currency"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:minHeight="30dp"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            android:maxLength="40"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lin_lay_available_money"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lin_lay_currency"
-        android:orientation="horizontal"
-        android:paddingTop="2dp">
-
-        <TextView
-            android:id="@+id/l_available_money"
-            android:layout_width="142dp"
-            android:layout_height="50dp"
-            android:fontFamily="sans-serif-black"
-            android:labelFor="@+id/et_last_name"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:text="@string/label_available_money"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_available_money"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:minHeight="45dp"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            android:maxLength="40"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lin_lay_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lin_lay_available_money"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/b_transaction_history"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="60dp"
-            android:background="@color/bank_green"
-            android:text="@string/button_transaction_history"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            app:icon="@android:drawable/stat_sys_upload"
-            app:strokeColor="@color/white"
-            android:layout_marginStart="10dp"/>
-
-        <Button
-            android:id="@+id/b_delete_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/light_red"
-            android:text="@string/button_delete_account"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            app:icon="@android:drawable/stat_sys_upload"
-            app:strokeColor="@color/white" />
+            android:textAlignment="textEnd"
+            android:textSize="22sp"
+            android:maxLength="40"
+            tools:ignore="SpeakableTextPresentCheck"/>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lin_lay_cash_button"
-        android:layout_below="@id/lin_lay_buttons"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/b_cash"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/bank_green"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="@string/button_cash"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:icon="@android:drawable/stat_sys_upload"
-            app:strokeColor="@color/white" />
     </LinearLayout>
 
     <View
-        android:id="@+id/bottom_divider"
+        android:id="@+id/bottom_divider1"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@+id/lin_lay_cash_button"
+        android:layout_below="@+id/lin_lay_town"
+        android:layout_marginTop="10dp"
+        android:background="@color/bank_green"
+        />
+
+    <Button
+        android:id="@+id/b_back_to_main_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottom_divider1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@color/berrish_red"
+        android:padding="15dp"
+        android:text="@string/button_to_main_page"
+        android:textColor="@color/white" />
+
+
+    <View
+        android:id="@+id/bottom_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/b_back_to_main_page"
         android:layout_marginTop="10dp"
         android:background="@color/bank_green"
         />
@@ -376,7 +273,7 @@
         android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bottom_divider"
+        android:layout_below="@id/bottom_divider2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/app_name"

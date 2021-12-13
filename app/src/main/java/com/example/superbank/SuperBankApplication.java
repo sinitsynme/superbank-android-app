@@ -3,27 +3,21 @@ package com.example.superbank;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.backendless.Backendless;
 import com.example.superbank.helper.NotificationHelper;
-import com.example.superbank.payload.request.CustomerRequestDto;
-import com.example.superbank.repository.RepositoryStorage;
-import com.example.superbank.service.CustomerService;
-import com.example.superbank.service.impl.CustomerServiceImpl;
+import com.example.superbank.values.Defaults;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-/**
- * ADMIN CLIENT VERSION
- */
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class SuperBankApplication extends Application {
-
-    CustomerService customerService = new CustomerServiceImpl(RepositoryStorage.customerRepository, RepositoryStorage.bankAccountRepository);
 
     private static Resources resources;
     private static NotificationManager notificationManager;
@@ -38,7 +32,8 @@ public class SuperBankApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        addCustomers();
+        setUpBackendless();
+
         resources = getResources();
 
         setUpNotificationManager();
@@ -46,26 +41,13 @@ public class SuperBankApplication extends Application {
         notificationHelper = new NotificationHelper(notificationManager);
     }
 
-    private void addCustomers() {
-
-        CustomerRequestDto sidor = new CustomerRequestDto("Sidor", "Sidorov",
-                new GregorianCalendar(2001, Calendar.JANUARY, 1).getTime(), "Russia", "Samara");
-
-        CustomerRequestDto galya = new CustomerRequestDto("Galina", "Galinova",
-                new GregorianCalendar(2002, Calendar.APRIL, 30).getTime(), "Russia", "Samara");
-
-        customerService.add(sidor);
-        customerService.add(galya);
-
-    }
-
-    public static Resources getRes(){
+    public static Resources getRes() {
         return resources;
     }
 
-//    public static NotificationManager getNotificationManager() {
-//        return notificationManager;
-//    }
+    public static NotificationManager getNotificationManager() {
+        return notificationManager;
+    }
 
     private void setUpNotificationManager() {
 
@@ -82,6 +64,18 @@ public class SuperBankApplication extends Application {
             notificationManager.createNotificationChannel(channel);
 
         }
+    }
+
+    private void setUpBackendless() {
+        Backendless.initApp(getApplicationContext(), Defaults.APPLICATION_ID, Defaults.API_KEY);
+        Backendless.setUrl(Defaults.SERVER_URL);
+    }
+
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 }

@@ -39,7 +39,7 @@ public class NotificationHelper {
             inboxStyle.addLine(line);
         }
 
-        NotificationCompat.Builder notifBuilder =
+        NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(context, SuperBankApplication.NOTIFICATION_CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_option_dialog)
                         .setContentTitle(resources.getString(R.string.label_transaction_word))
@@ -47,7 +47,7 @@ public class NotificationHelper {
                         .setAutoCancel(true)
                         .setStyle(inboxStyle);
 
-        Notification notification = notifBuilder.build();
+        Notification notification = notificationBuilder.build();
 
         notificationManager.notify(notificationId++, notification);
 

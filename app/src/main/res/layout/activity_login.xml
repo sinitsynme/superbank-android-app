@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity">
+
+
+    <LinearLayout
+        android:id="@+id/lin_lay_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_login" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="@string/label_login"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/lin_lay_header"
+        android:background="@color/bank_green" />
+
+    <LinearLayout
+        android:id="@+id/lin_lay_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/l_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="sans-serif-black"
+            android:labelFor="@+id/et_username"
+            android:paddingTop="15dp"
+            android:text="@string/label_username"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="40"
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_lay_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin_lay_username"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/l_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="sans-serif-black"
+            android:labelFor="@+id/et_password"
+            android:paddingTop="15dp"
+            android:text="@string/label_password"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ti_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:importantForAutofill="no"
+            app:endIconMode="password_toggle">
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:maxLength="40"
+                android:textAlignment="textStart"
+                android:textSize="18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/b_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lin_lay_password"
+        android:layout_marginTop="30dp"
+        android:padding="15dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/bank_green"
+        android:text="@string/button_login"
+        android:textColor="@color/white"
+        />
+
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/b_login"
+        android:background="@color/bank_green" />
+
+    <Button
+        android:id="@+id/b_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@color/dark_aqua"
+        android:padding="15dp"
+        android:text="@string/button_register"
+        android:textColor="@color/white" />
+
+    <View
+        android:id="@+id/bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/b_register"
+        android:layout_marginTop="30dp"
+        android:background="@color/bank_green" />
+
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottom_divider"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/app_name"
+        android:padding="5dp"
+        app:srcCompat="@drawable/logo" />
+
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/label_version"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:padding="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+
+</RelativeLayout>

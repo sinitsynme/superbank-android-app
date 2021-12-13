@@ -1,75 +1,83 @@
 package com.example.superbank.activity;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.backendless.exceptions.BackendlessFault;
 import com.example.superbank.R;
-import com.example.superbank.dialog.BasicAlertDialog;
-import com.example.superbank.payload.request.CustomerRequestDto;
-import com.example.superbank.repository.RepositoryStorage;
-import com.example.superbank.service.CustomerService;
-import com.example.superbank.service.impl.CustomerServiceImpl;
+import com.example.superbank.payload.request.UserRequestDto;
+import com.example.superbank.service.AuthenticationBackendlessService;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class NewAccountActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int MIN_YEARS_OLD = 14;
 
-    private EditText firstNameET;
-    private EditText lastNameET;
-    private EditText patronymicET;
-    private TextView birthDateTV;
-    private Spinner countrySpinner;
-    private EditText townET;
+    private UserRequestDto userRequestDto;
 
-    private TextView firstNameTV;
-    private TextView lastNameTV;
-    private TextView townTV;
-    private TextView birthDateLabel;
+    private AuthenticationBackendlessService authenticationBackendlessService = new AuthenticationBackendlessService();
+
+    private EditText firstNameET, lastNameET, patronymicET, townET;
+
+    private TextView firstNameTV, lastNameTV, birthDateTV, townTV, birthDateLabel;
+
+    private Spinner countrySpinner;
 
     private Calendar date = Calendar.getInstance();
     private boolean dateIsSet = false;
 
-    private CustomerService customerService = new CustomerServiceImpl(RepositoryStorage.customerRepository,
-            RepositoryStorage.bankAccountRepository);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_account);
 
-        Button btnCreateAccount = findViewById(R.id.b_create_account);
+
         firstNameET = findViewById(R.id.et_first_name);
         lastNameET = findViewById(R.id.et_last_name);
         patronymicET = findViewById(R.id.et_patronymic);
-        countrySpinner = findViewById(R.id.spinner_country);
         townET = findViewById(R.id.et_town);
+
         firstNameTV = findViewById(R.id.l_first_name);
         lastNameTV = findViewById(R.id.l_last_name);
         townTV = findViewById(R.id.l_town);
+        birthDateTV = findViewById(R.id.et_current_date);
+
         birthDateLabel = findViewById(R.id.l_birth_date);
 
+        countrySpinner = findViewById(R.id.spinner_country);
+
+        Button btnCreateAccount = findViewById(R.id.b_create_account);
         btnCreateAccount.setOnClickListener(this);
 
-        birthDateTV = findViewById(R.id.et_current_date);
+        Bundle params = getIntent().getExtras();
+        if (params != null) {
+            userRequestDto = (UserRequestDto) params.get("userRequestDto");
+        }
+
     }
 
     private void setCalendarDate() {
@@ -101,73 +109,130 @@ public class NewAccountActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
-        String firstName = firstNameET.getText().toString();
-        String lastName = lastNameET.getText().toString();
-        String patronymic = patronymicET.getText().toString();
+        String firstName = firstNameET.getText().toString().trim();
+        String lastName = lastNameET.getText().toString().trim();
+        String patronymic = patronymicET.getText().toString().trim();
         Date birthDate = date.getTime();
         String country = countrySpinner.getSelectedItem().toString();
-        String town = townET.getText().toString();
+        String town = townET.getText().toString().trim();
 
         boolean isEmpty = firstName.isEmpty() || lastName.isEmpty() || town.isEmpty() || !dateIsSet;
 
         if (!isEmpty) {
 
-            CustomerRequestDto customerRequestDto = new CustomerRequestDto(firstName, lastName, birthDate, country, town);
+            Map<String, Object> customerProperties = new HashMap<>();
+            customerProperties.put("firstName", firstName);
+            customerProperties.put("lastName", lastName);
+            customerProperties.put("birthDate", birthDate);
+            customerProperties.put("country", country);
+            customerProperties.put("town", town);
             if (!patronymic.isEmpty()) {
-                customerRequestDto.setPatronymic(patronymic);
+                customerProperties.put("patronymic", patronymic);
             }
 
-            try {
-                customerService.add(customerRequestDto);
+            Map<String, Object> userProperties = new HashMap<>();
+            userProperties.put("name", userRequestDto.getName());
+            userProperties.put("password", userRequestDto.getPassword());
+            userProperties.put("email", userRequestDto.getEmail());
 
-                AlertDialog.Builder successDialogBuilder = new AlertDialog.Builder(this);
-                successDialogBuilder.setTitle(getResources().getString(R.string.label_success))
-                        .setMessage(getResources().getString(R.string.label_successful_account_add))
-                        .setPositiveButton("OK", (dialogInterface, i) -> {
-                            dialogInterface.cancel();
+            synchronizedRegistration(userProperties, customerProperties);
 
-                            Intent intent = new Intent(this, AccountManagementActivity.class);
-                            startActivity(intent);
-                        });
+        } else
+            changeViableFieldsColor(firstName, lastName, town);
 
-                AlertDialog successDialog = successDialogBuilder.create();
-                successDialog.show();
+    }
+
+    private void changeViableFieldsColor(String firstName, String lastName, String town) {
+        if (firstName.isEmpty()) firstNameTV.setTextColor(Color.parseColor("#B22222"));
+        else firstNameTV.setTextColor(Color.parseColor("#808080"));
+
+        if (lastName.isEmpty()) lastNameTV.setTextColor(Color.parseColor("#B22222"));
+        else lastNameTV.setTextColor(Color.parseColor("#808080"));
+
+        if (town.isEmpty()) townTV.setTextColor(Color.parseColor("#B22222"));
+        else townTV.setTextColor(Color.parseColor("#808080"));
+
+        if (!dateIsSet) birthDateLabel.setTextColor(Color.parseColor("#B22222"));
+        else birthDateLabel.setTextColor(Color.parseColor("#808080"));
+    }
+
+    @SuppressLint("HandlerLeak")
+    private void synchronizedRegistration(Map<String, Object> userProperties, Map<String, Object> customerProperties){
+
+        Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                Bundle bundle = msg.getData();
+                Map<String, Object> responseMap = (Map<String, Object>) bundle.get("responseMap");
+                if((boolean) responseMap.get("error")){
+                    showErrorDialog((String) responseMap.get("errorMessage"));
+                }
+                else{
+                    Toast.makeText(NewAccountActivity.this, "Successful registration", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(NewAccountActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
 
             }
-            catch (RuntimeException e){
-                Bundle args = new Bundle();
-                args.putString("header", getResources().getString(R.string.label_error));
-                args.putString("msg", getResources().getString(R.string.exception_customer_exists));
-                BasicAlertDialog basicAlertDialog = new BasicAlertDialog();
-                basicAlertDialog.setArguments(args);
+        };
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                basicAlertDialog.show(transaction, "error_customer_exists");
-
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Message msg = handler.obtainMessage();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("responseMap", (Serializable) authenticationBackendlessService.synchronizedRegistration(userProperties, customerProperties));
+                msg.setData(bundle);
+                handler.sendMessage(msg);
             }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
 
 
-        } else {
 
-            if (firstName.isEmpty()) firstNameTV.setTextColor(Color.parseColor("#B22222"));
-            else firstNameTV.setTextColor(Color.parseColor("#808080"));
 
-            if (lastName.isEmpty()) lastNameTV.setTextColor(Color.parseColor("#B22222"));
-            else lastNameTV.setTextColor(Color.parseColor("#808080"));
+    }
 
-            if (town.isEmpty()) townTV.setTextColor(Color.parseColor("#B22222"));
-            else townTV.setTextColor(Color.parseColor("#808080"));
+    private void showSuccessfulRegistrationDialog() {
+        AlertDialog.Builder successDialogBuilder = new AlertDialog.Builder(NewAccountActivity.this);
+        successDialogBuilder.setTitle(getResources().getString(R.string.label_success))
+                .setMessage(getResources().getString(R.string.label_successful_account_add))
+                .setPositiveButton("OK", (dialogInterface, i) -> {
+                    dialogInterface.cancel();
 
-            if (!dateIsSet) birthDateLabel.setTextColor(Color.parseColor("#B22222"));
-            else birthDateLabel.setTextColor(Color.parseColor("#808080"));
+                    Intent intent = new Intent(NewAccountActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                });
 
-        }
+        AlertDialog successDialog = successDialogBuilder.create();
+        successDialog.show();
+    }
+
+    private void showErrorDialog(String message) {
+        AlertDialog.Builder faultDialogBuilder = new AlertDialog.Builder(NewAccountActivity.this);
+        faultDialogBuilder.setTitle(getResources().getString(R.string.label_error))
+                .setMessage(message)
+                .setPositiveButton("OK", (dialogInterface, i) -> {
+                    dialogInterface.cancel();
+                    onBackPressed();
+                });
+
+        AlertDialog faultDialog = faultDialogBuilder.create();
+        faultDialog.show();
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        if (userRequestDto != null) {
+            intent.putExtra("username", userRequestDto.getName());
+            intent.putExtra("email", userRequestDto.getEmail());
+        }
+
         startActivity(intent);
     }
+
+
 }

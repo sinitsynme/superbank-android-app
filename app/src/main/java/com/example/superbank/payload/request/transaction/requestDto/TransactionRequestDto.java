@@ -3,13 +3,17 @@ package com.example.superbank.payload.request.transaction.requestDto;
 import com.example.superbank.values.annotations.TransactionCategory;
 import com.example.superbank.values.annotations.Currency;
 
+import java.util.Date;
+
 public class TransactionRequestDto {
 
-    private Long senderId;
+    private Integer senderId;
 
-    private Long receiverId;
+    private Integer receiverId;
 
     private Double amountOfMoney;
+
+    private Date transactionDate;
 
     @Currency
     private int currency;
@@ -19,31 +23,32 @@ public class TransactionRequestDto {
 
     private String comment;
 
-    public TransactionRequestDto(Long senderId, Long receiverId, Double amountOfMoney,
-                                 @Currency int currency, @TransactionCategory int category) {
+    public TransactionRequestDto(Integer senderId, Integer receiverId, Double amountOfMoney,
+                                 @Currency int currency, @TransactionCategory int category, Date transactionDate) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.amountOfMoney = amountOfMoney;
         this.currency = currency;
         this.category = category;
+        this.transactionDate = transactionDate;
     }
 
     public TransactionRequestDto() {
     }
 
-    public Long getSenderId() {
+    public Integer getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(Long senderId) {
+    public void setSenderId(Integer senderId) {
         this.senderId = senderId;
     }
 
-    public Long getReceiverId() {
+    public Integer getReceiverId() {
         return receiverId;
     }
 
-    public void setReceiverId(Long receiverId) {
+    public void setReceiverId(Integer receiverId) {
         this.receiverId = receiverId;
     }
 
@@ -77,5 +82,13 @@ public class TransactionRequestDto {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
     }
 }

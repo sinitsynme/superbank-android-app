@@ -6,29 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".activity.NewAccountActivity">
 
-    <ImageView
-        android:id="@+id/ic_new_account"
-        android:layout_width="60dp"
-        android:layout_height="66dp"
-        android:contentDescription="icon"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:srcCompat="@android:drawable/ic_menu_save" />
+    <LinearLayout
+        android:id="@+id/lin_lay_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_new_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="sans-serif-black"
-        android:padding="15dp"
-        android:text="@string/label_new_account"
-        android:textSize="30sp" />
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_registration" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="@string/label_registration_2"
+            android:textSize="27sp" />
+    </LinearLayout>
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_below="@+id/tv_new_account"
+        android:layout_below="@+id/lin_lay_header"
         android:background="@color/bank_green" />
 
     <LinearLayout
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
         android:orientation="horizontal"
-        android:paddingTop="2dp">
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/l_first_name"
@@ -245,11 +246,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@color/bank_green"
-        android:text="@string/button_create"
+        android:text="@string/button_register"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:icon="@android:drawable/stat_sys_upload"
-        app:strokeColor="@color/white" />
+         />
 
     <View
         android:id="@+id/bottom_divider"

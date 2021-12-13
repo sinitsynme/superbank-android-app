@@ -1,17 +1,12 @@
 package com.example.superbank.activity;
 
-import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -20,37 +15,32 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
 import com.example.superbank.R;
 import com.example.superbank.SuperBankApplication;
-import com.example.superbank.helper.NotificationHelper;
-import com.example.superbank.manager.TransactionManager;
-import com.example.superbank.payload.request.transaction.requestDto.TransactionRequestDtoBuilder;
+import com.example.superbank.payload.request.transaction.requestDto.TransactionMapBuilder;
 import com.example.superbank.payload.response.TransactionResponseDto;
-import com.example.superbank.repository.RepositoryStorage;
-import com.example.superbank.service.BankAccountService;
-import com.example.superbank.service.impl.BankAccountServiceImpl;
-import com.example.superbank.service.impl.TransactionServiceImpl;
+import com.example.superbank.service.BankAccountBackendlessService;
+import com.example.superbank.service.TransactionBackendlessService;
 import com.example.superbank.values.annotations.Currency;
 import com.example.superbank.values.annotations.TransactionCategory;
 import com.example.superbank.values.strings.StringsArrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class NewTransactionActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText etSender;
-    private EditText etReceiver;
-    private EditText etTransactionSum;
-    private EditText etComment;
+    TransactionBackendlessService transactionBackendlessService = new TransactionBackendlessService(
+            new BankAccountBackendlessService());
 
-    private TextView tvSender;
+    private EditText etReceiver, etTransactionSum, etComment;
+
     private TextView tvReceiver;
     private TextView tvTransactionSum;
 
@@ -61,6 +51,7 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
     private String[] categoriesStrings;
     private String[] currenciesStrings;
 
+    private HashMap<String, Object> senderBankAccount;
 
     @TransactionCategory
     private int chosenTransactionCategory;
@@ -68,28 +59,24 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
     @Currency
     private int chosenCurrency;
 
-    private final BankAccountService bankAccountService = new BankAccountServiceImpl(RepositoryStorage.bankAccountRepository,
-            RepositoryStorage.customerRepository);
-
-    private final TransactionManager transactionManager = new TransactionManager(bankAccountService,
-            new TransactionServiceImpl(RepositoryStorage.transactionRepository, RepositoryStorage.bankAccountRepository));
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_transaction);
 
+        setUpActivity();
+    }
+
+    private void setUpActivity() {
         Button butMakeTransaction = findViewById(R.id.b_make_transaction);
 
-        etSender = findViewById(R.id.et_sender_account_num);
         etReceiver = findViewById(R.id.et_receiver_account_num);
-        etTransactionSum = findViewById(R.id.et_transaction_sum);
+        etTransactionSum = findViewById(R.id.et_amount_of_money);
         etComment = findViewById(R.id.et_comment);
 
-        tvTransactionSum = findViewById(R.id.tv_transaction_sum);
+        tvTransactionSum = findViewById(R.id.tv_amount_of_money);
         tvReceiver = findViewById(R.id.tv_receiver_account_num);
-        tvSender = findViewById(R.id.tv_sender_account_num);
 
         spCategory = findViewById(R.id.category_spinner);
         spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -117,14 +104,16 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
             }
         });
 
+        //Get current bank account
         Bundle params = getIntent().getExtras();
 
         if (params != null) {
-            etSender.setText(params.get("sender").toString());
+            senderBankAccount = (HashMap<String, Object>) params.get("senderBankAccount");
         }
 
         butMakeTransaction.setOnClickListener(this);
 
+        //Preload application strings
         errorStrings = StringsArrays.ERROR_TRANSACTION_STRINGS;
         categoriesStrings = StringsArrays.TRANSACTION_CATEGORY_STRINGS;
         currenciesStrings = StringsArrays.CURRENCIES;
@@ -132,14 +121,13 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
 
 
     @Override
+    @SuppressLint("HandlerLeak")
     public void onClick(View view) {
 
-
-        String senderIdString = etSender.getText().toString();
         String receiverIdString = etReceiver.getText().toString();
         String transactionSumString = etTransactionSum.getText().toString();
 
-        if (areVitalTextViewsEmpty(senderIdString, receiverIdString, transactionSumString)) return;
+        if (areVitalTextViewsEmpty(receiverIdString, transactionSumString)) return;
 
         double transactionSum = Double.parseDouble(etTransactionSum.getText().toString());
 
@@ -154,48 +142,73 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
             return;
         }
 
-        TransactionRequestDtoBuilder builder = transactionManager.prepareTransaction();
-        builder.setReceiver(Long.parseLong(etReceiver.getText().toString()))
-                .setSender(Long.parseLong(etSender.getText().toString()))
+        int senderAccountNumber = (int) senderBankAccount.get("accountNumber");
+
+        TransactionMapBuilder builder = new TransactionMapBuilder();
+        builder.setReceiver(Integer.parseInt(etReceiver.getText().toString()))
+                .setSender(senderAccountNumber)
                 .setAmountOfMoney(transactionSum)
                 .setComment(etComment.getText().toString())
                 .setCategory(chosenTransactionCategory)
                 .setCurrency(chosenCurrency);
 
-        TransactionResponseDto responseDto = transactionManager.commitTransaction(builder.build());
 
-        if (responseDto.isError()) {
+        Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                Bundle bundle = msg.getData();
+                TransactionResponseDto responseDto = (TransactionResponseDto) bundle.get("responseDto");
+                if (responseDto.isError()) {
 
-            StringBuilder errorString = new StringBuilder();
+                    StringBuilder errorString = new StringBuilder();
 
-            ArrayList<Integer> errorCodes = responseDto.getErrorCodes();
-            for (int i : errorCodes) {
-                errorString.append("· ").append(errorStrings[i - 1]).append("\n");
+                    List<Integer> errorCodes = responseDto.getErrorCodes();
+                    for (int i : errorCodes) {
+                        errorString.append("· ").append(errorStrings[i - 1]).append("\n");
+                    }
+
+                    AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(NewTransactionActivity.this);
+                    errorDialogBuilder.setTitle(getResources().getString(R.string.label_error))
+                            .setMessage(errorString)
+                            .setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.cancel());
+
+                    AlertDialog errorDialog = errorDialogBuilder.create();
+                    errorDialog.show();
+
+                    return;
+                }
+
+                showSuccessfulTransactionDialog();
+                showSuccessfulTransactionNotification(responseDto);
             }
+        };
 
-            AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
-            errorDialogBuilder.setTitle(getResources().getString(R.string.label_error))
-                    .setMessage(errorString)
-                    .setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.cancel());
+        Runnable runnable = () -> {
+            Message msg = handler.obtainMessage();
+            Bundle bundle = new Bundle();
+            TransactionResponseDto responseDto = transactionBackendlessService.synchronousMakeTransaction(builder.build());
+            bundle.putSerializable("responseDto", responseDto);
+            msg.setData(bundle);
+            handler.sendMessage(msg);
+        };
 
-            AlertDialog errorDialog = errorDialogBuilder.create();
-            errorDialog.show();
+        Thread thread = new Thread(runnable);
+        thread.start();
 
-            return;
-        }
+    }
 
+    private void showSuccessfulTransactionDialog() {
         AlertDialog.Builder successDialogBuilder = new AlertDialog.Builder(this);
         successDialogBuilder.setTitle(getResources().getString(R.string.label_success))
                 .setMessage(getResources().getString(R.string.label_successful_transaction))
                 .setPositiveButton("OK", (dialogInterface, i) -> {
 
-                    //SHOW SUCCESSFUL TRANSACTION ACTIVITY
                     dialogInterface.cancel();
 
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 }).setOnCancelListener(dialogInterface -> {
-            //SHOW SUCCESSFUL TRANSACTION ACTIVITY
+
             dialogInterface.cancel();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -203,8 +216,6 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
 
         AlertDialog successDialog = successDialogBuilder.create();
         successDialog.show();
-
-        showSuccessfulTransactionNotification(responseDto);
     }
 
     private void showSuccessfulTransactionNotification(TransactionResponseDto responseDto) {
@@ -220,33 +231,35 @@ public class NewTransactionActivity extends AppCompatActivity implements View.On
         String category = getResources().getString(R.string.label_category) + ": "
                 + categoriesStrings[chosenTransactionCategory];
 
-        List<String> lines = Arrays.asList(transfer, sender, receiver, category);
+        List<String> lines = new ArrayList<>(Arrays.asList(transfer, sender, receiver, category));
+
+        if (!responseDto.getComment().isEmpty()) {
+            lines.add(getResources().getString(R.string.label_comment)
+                    + ": " + responseDto.getComment());
+        }
 
         SuperBankApplication.notificationHelper.sendNotification(this,
                 MainActivity.class, lines);
-
     }
 
 
+    private boolean areVitalTextViewsEmpty(String receiverIdString, String transactionSumString) {
 
-    private boolean areVitalTextViewsEmpty(String senderIdString, String receiverIdString, String transactionSumString) {
-        boolean isEmpty = senderIdString.isEmpty() || receiverIdString.isEmpty() || transactionSumString.isEmpty();
+        boolean isEmpty = false;
 
-        if (isEmpty) {
-            if (senderIdString.isEmpty()) tvSender.setTextColor(Color.parseColor("#B22222"));
-            else tvSender.setTextColor(Color.parseColor("#808080"));
+        if (receiverIdString.isEmpty()) {
+            isEmpty = true;
+            tvReceiver.setTextColor(Color.parseColor("#B22222"));
+        } else tvReceiver.setTextColor(Color.parseColor("#808080"));
 
-            if (receiverIdString.isEmpty()) tvReceiver.setTextColor(Color.parseColor("#B22222"));
-            else tvReceiver.setTextColor(Color.parseColor("#808080"));
 
-            if (transactionSumString.isEmpty())
-                tvTransactionSum.setTextColor(Color.parseColor("#B22222"));
-            else tvTransactionSum.setTextColor(Color.parseColor("#808080"));
-        } else {
-            tvSender.setTextColor(Color.parseColor("#808080"));
-            tvReceiver.setTextColor(Color.parseColor("#808080"));
-            tvTransactionSum.setTextColor(Color.parseColor("#808080"));
-        }
+        if (transactionSumString.isEmpty()) {
+            isEmpty = true;
+            tvTransactionSum.setTextColor(Color.parseColor("#B22222"));
+        } else tvTransactionSum.setTextColor(Color.parseColor("#808080"));
+
         return isEmpty;
+
+
     }
 }

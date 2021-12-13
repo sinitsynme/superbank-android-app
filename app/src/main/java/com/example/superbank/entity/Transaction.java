@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Transaction implements Serializable {
 
-    private Long transactionId;
+    private Integer transactionNumber;
 
     private BankAccount sender;
 
@@ -26,6 +26,8 @@ public class Transaction implements Serializable {
 
     private String comment;
 
+    private String objectId;
+
     public Transaction(BankAccount sender, BankAccount receiver, Double amountOfMoney, @Currency int currency,
                        Date transactionDate, @TransactionCategory int category, String comment) {
         this.sender = sender;
@@ -40,12 +42,12 @@ public class Transaction implements Serializable {
     public Transaction() {
     }
 
-    public Long getTransactionId() {
-        return transactionId;
+    public Integer getTransactionNumber() {
+        return transactionNumber;
     }
 
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
+    public void setTransactionNumber(Integer transactionNumber) {
+        this.transactionNumber = transactionNumber;
     }
 
     public BankAccount getSender() {
@@ -102,5 +104,13 @@ public class Transaction implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 }

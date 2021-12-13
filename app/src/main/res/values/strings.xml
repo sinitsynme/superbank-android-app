@@ -4,10 +4,10 @@
     <string name="app_name" translatable="false">SuperBank</string>
     <string name="label_new_account">New account</string>
     <string name="label_manage_accounts">Account management</string>
-    <string name="label_version">V.1.1.ALPHA</string>
+    <string name="label_version">V.2.0.ALPHA</string>
     <string name="label_new_transaction">New Transaction</string>
     <string name="label_sender_account_number">№ of the sender\'s account/card</string>
-    <string name="label_receiver_account_number">№ of the receiver\'s account/card</string>
+    <string name="label_receiver_account_number">№ of the receiver\'s account</string>
     <string name="label_transaction_sum">Amount of money</string>
     <string name="label_currency">Currency</string>
     <string name="category_supermarket">Supermarkets</string>
@@ -16,8 +16,8 @@
 
     <string-array name="currencies">
         <item>₽</item>
-<!--        <item>$</item>-->
-<!--        <item>€</item>-->
+        <!--        <item>$</item>-->
+        <!--        <item>€</item>-->
     </string-array>
 
     <string-array name="categories">
@@ -33,9 +33,18 @@
         <item>@string/country_usa</item>
     </string-array>
 
+    <string-array name="transaction_errors">
+        <item>@string/error_invalid_sender_id</item>
+        <item>@string/error_invalid_receiver_id</item>
+        <item>@string/error_not_enough_money</item>
+        <item>@string/error_invalid_category</item>
+        <item>@string/error_sender_receiver_equal</item>
+        <item>@string/error_unidentified</item>
+    </string-array>
+
     <string name="label_category">Category</string>
     <string name="label_comment">Comment</string>
-    <string name="button_make_transaction">Make the transaction</string>
+    <string name="button_make_transaction">Make a transaction</string>
     <string name="button_to_main_page">Back to main page</string>
     <string name="label_last_name">Last name</string>
     <string name="label_first_name">First name</string>
@@ -58,7 +67,7 @@
     <string name="label_finances">Finances</string>
     <string name="button_transaction_history">Transaction history</string>
     <string name="button_delete_account">Delete account</string>
-    <string name="button_cash">Supply cash</string>
+    <string name="button_supply_cash">Supply cash</string>
     <string name="label_error">ERROR</string>
     <string name="label_success">SUCCESS</string>
     <string name="label_successful_removal">Customer was successfully deleted</string>
@@ -67,7 +76,7 @@
     <string name="label_option">Choose an option</string>
     <string name="label_negative_amount_cash">Non-positive amount of supplied cash is not allowed!</string>
     <string name="label_successful_cash_suply">The cash was supplied successfully</string>
-    <string name="label_input_cash_value">Type supplied cash value</string>
+    <string name="label_supplied_cash_value">Type supplied cash value</string>
     <string name="label_negative_transaction_sum">Non-positive transaction sum is not allowed</string>
     <string name="label_successful_transaction">Transaction was successfully committed</string>
     <string name="label_transaction_word">Transaction</string>
@@ -79,5 +88,24 @@
     <string name="error_sender_receiver_equal">The sender\'s ID and the receiver\'s ID mustn\'t be equal</string>
     <string name="label_sender">Sender</string>
     <string name="label_receiver">Receiver</string>
+    <string name="label_login">SuperBank Login</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="label_registration_1">Registration - Step 1</string>
+    <string name="label_username">Username</string>
+    <string name="label_confirm_password">Confirm password</string>
+    <string name="button_register">Register</string>
+    <string name="button_login">Log in</string>
+    <string name="button_next_step">Next step</string>
+    <string name="label_registration_2">Registration - Step 2</string>
+    <string name="button_logout">Log out</string>
+    <string name="label_balance">Balance</string>
+    <string name="label_account_number">Your account number</string>
+    <string name="substitute_balance" translatable="false">0.00 ₽</string>
+    <string name="substitute_account_number" translatable="false">10000</string>
+    <string name="button_withdraw_cash">Withdraw cash</string>
+    <string name="error_invalid_category">Chosen category is invalid</string>
+    <string name="error_unidentified">Unidentified error</string>
 
 </resources>

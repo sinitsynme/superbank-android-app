@@ -1,9 +1,13 @@
 package com.example.superbank.payload.response;
 
+import androidx.recyclerview.widget.LinearSmoothScroller;
+
 import com.example.superbank.values.annotations.Currency;
 import com.example.superbank.values.annotations.TransactionCategory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * When {@link TransactionResponseDto } is being processed during the commit,
@@ -15,23 +19,21 @@ import java.util.ArrayList;
  *
  */
 
-public class TransactionResponseDto {
+public class TransactionResponseDto implements Serializable {
 
     private boolean error = false;
 
     /**
      * Error codes:
-     *
-     *
-     * 1 - senderId is not valid
-     * 2 - receiverId is not valid
+     * 1 - senderAccountNumber is not valid
+     * 2 - receiverAccountNumber is not valid
      * 3 - not enough amount of money on sender's account
      * 4 - invalid category
-     * 5 - senderId and receiverId equal
-     *
+     * 5 - senderAccountNumber and receiverAccountNumber are equal
+     * 6 - unidentified error
      */
 
-    private ArrayList<Integer> errorCodes;
+    private List<Integer> errorCodes = new ArrayList<>();
 
     private Long transactionId;
 
@@ -79,11 +81,11 @@ public class TransactionResponseDto {
         this.error = error;
     }
 
-    public ArrayList<Integer> getErrorCodes() {
+    public List<Integer> getErrorCodes() {
         return errorCodes;
     }
 
-    public void setErrorCodes(ArrayList<Integer> errorCodes) {
+    public void setErrorCodes(List<Integer> errorCodes) {
         this.errorCodes = errorCodes;
     }
 
