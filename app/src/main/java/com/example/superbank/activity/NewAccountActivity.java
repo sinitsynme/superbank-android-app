@@ -169,7 +169,7 @@ public class NewAccountActivity extends AppCompatActivity implements View.OnClic
                 }
                 else{
                     Toast.makeText(NewAccountActivity.this, "Successful registration", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(NewAccountActivity.this, MainActivity.class);
+                    Intent intent = new Intent(NewAccountActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
 
